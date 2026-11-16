@@ -50,7 +50,7 @@ header {
 nav a { margin-left: 24px; font-weight: 500; }
 nav a:hover { color: var(--sun); }
 
-/* ---------- Hero ---------- */
+/* ---------- Hero (listing page) ---------- */
 .hero {
   background: var(--sea);
   color: var(--white);
@@ -81,7 +81,8 @@ main { padding: 28px 48px 56px; }
 
 #results-info { color: var(--muted); margin-bottom: 20px; }
 
-#grid {
+#grid,
+.similar-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
   gap: 24px;
@@ -110,15 +111,15 @@ main { padding: 28px 48px 56px; }
   background: var(--sea);
 }
 
-/* Each type of place gets its own colour */
-.thumb[data-cat="History"]   { background: #8a4b2a; }
-.thumb[data-cat="Nature"]    { background: #2f6b3b; }
-.thumb[data-cat="Wildlife"]  { background: #a8741a; }
-.thumb[data-cat="Beach"]     { background: #0e8aa6; }
-.thumb[data-cat="Culture"]   { background: #7a3b6b; }
-.thumb[data-cat="City"]      { background: #3b4a8a; }
-.thumb[data-cat="Landmark"]  { background: #a8323a; }
-.thumb[data-cat="Adventure"] { background: #c25a12; }
+/* Each type of place gets its own colour (cards and detail hero) */
+.thumb[data-cat="History"],   .detail-hero[data-cat="History"]   { background: #8a4b2a; }
+.thumb[data-cat="Nature"],    .detail-hero[data-cat="Nature"]    { background: #2f6b3b; }
+.thumb[data-cat="Wildlife"],  .detail-hero[data-cat="Wildlife"]  { background: #a8741a; }
+.thumb[data-cat="Beach"],     .detail-hero[data-cat="Beach"]     { background: #0e8aa6; }
+.thumb[data-cat="Culture"],   .detail-hero[data-cat="Culture"]   { background: #7a3b6b; }
+.thumb[data-cat="City"],      .detail-hero[data-cat="City"]      { background: #3b4a8a; }
+.thumb[data-cat="Landmark"],  .detail-hero[data-cat="Landmark"]  { background: #a8323a; }
+.thumb[data-cat="Adventure"], .detail-hero[data-cat="Adventure"] { background: #c25a12; }
 
 .card-body { padding: 18px; display: flex; flex-direction: column; flex: 1; }
 .card-body h3 { font-size: 1.3rem; }
@@ -144,6 +145,98 @@ main { padding: 28px 48px 56px; }
   margin-top: 4px;
 }
 
+/* ---------- Detail page ---------- */
+.detail-hero {
+  background: var(--sea);
+  color: var(--white);
+  padding: 32px 48px 40px;
+  min-height: 280px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.back { text-decoration: underline; margin-bottom: auto; padding-bottom: 40px; }
+.detail-hero h1 { font-size: clamp(2.2rem, 6vw, 3.8rem); }
+.detail-hero p { font-size: 1.15rem; margin-top: 8px; }
+
+.detail-layout {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  padding: 40px 48px 56px;
+}
+
+.detail-main { flex: 2 1 520px; min-width: 0; }
+.detail-side { flex: 1 1 300px; }
+
+.detail-main h2 { font-size: 1.8rem; margin-bottom: 12px; }
+.detail-main section { margin-bottom: 36px; }
+.about-text { font-size: 1.1rem; max-width: 62ch; }
+
+.activity-list { list-style: none; display: grid; gap: 10px; }
+.activity-list li {
+  background: var(--sand);
+  border-left: 4px solid var(--sea);
+  padding: 14px 16px;
+  font-weight: 500;
+}
+
+.calendar {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 8px;
+  max-width: 560px;
+}
+.calendar span {
+  text-align: center;
+  padding: 10px 0;
+  border-radius: 6px;
+  background: var(--mist);
+  font-size: 0.9rem;
+}
+.calendar span.best { background: var(--sun); font-weight: 700; }
+.calendar-note { color: var(--muted); font-size: 0.9rem; margin-top: 10px; }
+
+.gallery { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.gallery div {
+  height: 140px;
+  border-radius: 8px;
+  color: var(--white);
+  font-size: 0.8rem;
+  padding: 10px;
+  background: var(--sea);
+  opacity: 0.85;
+}
+
+.panel {
+  border: 1px solid var(--mist);
+  border-radius: 10px;
+  padding: 24px;
+  position: sticky;
+  top: 20px;
+}
+.panel h3 { font-size: 1.2rem; margin-bottom: 6px; }
+.panel .big { font-size: 1.5rem; font-weight: 700; margin-bottom: 4px; }
+.panel .small { color: var(--muted); font-size: 0.9rem; margin-bottom: 22px; }
+
+.btn {
+  display: block;
+  text-align: center;
+  padding: 14px;
+  border-radius: 6px;
+  font-weight: 700;
+  margin-top: 10px;
+}
+.btn-main { background: var(--sun); color: var(--ink); }
+.btn-outline { border: 2px solid var(--sea); color: var(--sea); }
+
+.similar { padding: 0 48px 56px; }
+.similar h2 { font-size: 1.8rem; margin-bottom: 16px; }
+
+.not-found { padding: 60px 48px; }
+.not-found a { text-decoration: underline; }
+
 /* ---------- Footer ---------- */
 footer {
   background: var(--ink);
@@ -153,6 +246,11 @@ footer {
 }
 
 @media (max-width: 600px) {
-  header, .hero, main, footer { padding-left: 20px; padding-right: 20px; }
+  header, .hero, main, footer, .detail-hero, .detail-layout, .similar, .not-found {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
   nav a { margin: 0 14px 0 0; }
+  .calendar { grid-template-columns: repeat(4, 1fr); }
+  .gallery { grid-template-columns: 1fr; }
 }
