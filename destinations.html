@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Destinations | TripNest</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <header>
+    <a href="#" class="logo">TripNest</a>
+    <nav>
+      <a href="#">Home</a>
+      <a href="destinations.html">Destinations</a>
+      <a href="#">Stay</a>
+      <a href="#">Planner</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h1>Find your next destination</h1>
+    <p>Browse places in Ghana and abroad. See the best months to go and what you can do there.</p>
+
+    <div class="filters">
+      <input type="search" id="search" placeholder="Search by place or country" aria-label="Search destinations">
+      <select id="region" aria-label="Filter by region"></select>
+      <select id="category" aria-label="Filter by type"></select>
+    </div>
+  </section>
+
+  <main>
+    <p id="results-info"></p>
+    <div id="grid"></div>
+  </main>
+
+  <footer>TripNest · Discover. Plan. Stay. Explore.</footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/destinations.js"></script>
+</body>
+</html>
