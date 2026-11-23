@@ -12,13 +12,13 @@ export default function StatCard({
   icon?: ReactNode;
 }) {
   return (
-    <div className="border border-line bg-white p-4">
+    <div className="rounded-2xl border border-line bg-white p-5 shadow-soft">
       <div className="flex items-start justify-between gap-3">
-        <p className="text-[0.66rem] font-semibold uppercase tracking-[0.16em] text-muted">{label}</p>
-        {icon && <span className="text-forest/40">{icon}</span>}
+        <p className="font-mono text-[0.68rem] font-medium uppercase tracking-[0.1em] text-muted">{label}</p>
+        {icon && <span className="text-muted">{icon}</span>}
       </div>
-      <p className="mt-2 font-display text-[1.8rem] leading-none text-forest">{value}</p>
-      {hint && <p className="mt-1.5 text-[0.74rem] leading-snug text-muted">{hint}</p>}
+      <p className="mt-2 font-sans text-[1.75rem] font-bold leading-none tracking-[-0.03em] text-ink">{value}</p>
+      {hint && <p className="mt-1.5 text-[0.76rem] leading-snug text-muted">{hint}</p>}
     </div>
   );
 }

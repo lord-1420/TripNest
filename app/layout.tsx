@@ -1,25 +1,21 @@
 import type { Metadata } from "next";
-import localFont from "next/font/local";
+import { Suspense } from "react";
+import { Plus_Jakarta_Sans, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
-import "cesium/Build/Cesium/Widgets/widgets.css";
+import TopProgressBar from "@/components/site/TopProgressBar";
 
-const display = localFont({
-  src: [
-    { path: "../public/fonts/dm-serif-display-normal-400-latin.woff2", weight: "400", style: "normal" },
-    { path: "../public/fonts/dm-serif-display-italic-400-latin.woff2", weight: "400", style: "italic" },
-  ],
-  variable: "--font-display",
-  display: "swap",
-  fallback: ["Georgia", "serif"],
-});
-
-const sans = localFont({
-  src: [
-    { path: "../public/fonts/manrope-normal-200_800-latin.woff2", weight: "200 800", style: "normal" },
-  ],
+const jakarta = Plus_Jakarta_Sans({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800"],
   variable: "--font-sans",
   display: "swap",
-  fallback: ["system-ui", "-apple-system", "Segoe UI", "sans-serif"],
+});
+
+const mono = JetBrains_Mono({
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  variable: "--font-mono",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -43,11 +39,14 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${display.variable} ${sans.variable}`}>
-      <body>
+    <html lang="en" className={`${jakarta.variable} ${mono.variable}`}>
+      <body className="bg-white text-ink antialiased selection:bg-forest/10 selection:text-forest">
+        <Suspense fallback={null}>
+          <TopProgressBar />
+        </Suspense>
         <a
           href="#main"
-          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-full focus:bg-forest focus:px-5 focus:py-3 focus:text-sm focus:font-semibold focus:text-white"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-full focus:bg-ink focus:px-5 focus:py-3 focus:text-sm focus:font-semibold focus:text-white"
         >
           Skip to content
         </a>

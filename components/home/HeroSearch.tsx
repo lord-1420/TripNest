@@ -12,9 +12,15 @@ interface Suggestion {
   href: string;
 }
 
-const POPULAR = ["Accra", "Cape Coast", "Kumasi", "Aburi"];
+const POPULAR = ["Accra", "Cape Coast", "Kumasi", "Aburi", "Mole"];
 
-export default function HeroSearch({ categories }: { categories: { slug: string; name: string }[] }) {
+export default function HeroSearch({
+  categories,
+  variant = "hero",
+}: {
+  categories: { slug: string; name: string }[];
+  variant?: "hero" | "standalone";
+}) {
   const router = useRouter();
   const listId = useId();
   const [query, setQuery] = useState("");
@@ -40,11 +46,11 @@ export default function HeroSearch({ categories }: { categories: { slug: string;
         setResults(data.results ?? []);
         setOpen(true);
       } catch {
-        /* aborted or offline — the form submit still works */
+        /* aborted or offline */
       } finally {
         setLoading(false);
       }
-    }, 220);
+    }, 180);
     return () => {
       controller.abort();
       clearTimeout(timer);
@@ -83,26 +89,23 @@ export default function HeroSearch({ categories }: { categories: { slug: string;
     }
   };
 
+  const isHero = variant === "hero";
+
   return (
     <div ref={boxRef} className="relative">
       <form
         onSubmit={submit}
         role="search"
         aria-label="Search destinations"
-        className="rounded-lg border border-line/80 bg-white/[0.98] p-3 shadow-float backdrop-blur md:rounded-[18px] md:p-4"
+        className="rounded-2xl border border-black/[0.08] bg-white p-2 shadow-float md:rounded-full"
       >
-        <div className="grid gap-2 md:grid-cols-[1.45fr_1fr_auto] md:items-end md:gap-3">
-          <div className="relative">
-            <label htmlFor="hero-search" className="field-label px-1">
-              Where do you want to explore?
+        <div className="grid gap-1.5 md:grid-cols-[1.5fr_1fr_auto] md:items-center md:gap-0">
+          {/* Where */}
+          <div className="relative md:border-r md:border-line md:pr-2">
+            <label htmlFor="hero-search" className="block px-4 pt-1.5 text-[0.68rem] font-semibold text-ink">
+              Where
             </label>
             <div className="relative">
-              <span aria-hidden className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-forest/[0.45]">
-                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <circle cx="11" cy="11" r="7" />
-                  <path d="m20 20-3.5-3.5" strokeLinecap="round" />
-                </svg>
-              </span>
               <input
                 id="hero-search"
                 role="combobox"
@@ -118,11 +121,11 @@ export default function HeroSearch({ categories }: { categories: { slug: string;
                 }}
                 onFocus={() => results.length > 0 && setOpen(true)}
                 onKeyDown={onKeyDown}
-                placeholder="Destination, region or town"
-                className="field h-[52px] pl-10 text-[0.95rem]"
+                placeholder="Search destinations, towns or regions"
+                className="w-full bg-transparent px-4 pb-2 pt-0.5 text-[0.9rem] text-ink placeholder:text-muted/80 focus:outline-none"
               />
               {loading && (
-                <span className="absolute right-3 top-1/2 h-3.5 w-3.5 -translate-y-1/2 animate-spin rounded-full border-[1.5px] border-forest/20 border-t-forest/70" />
+                <span className="absolute right-3 top-1/2 h-3.5 w-3.5 -translate-y-1/2 animate-spin rounded-full border-[1.5px] border-ink/20 border-t-ink" />
               )}
             </div>
 
@@ -131,7 +134,7 @@ export default function HeroSearch({ categories }: { categories: { slug: string;
                 id={listId}
                 role="listbox"
                 aria-label="Search suggestions"
-                className="absolute left-0 right-0 top-[calc(100%+0.4rem)] z-30 max-h-80 overflow-auto rounded-md border border-line bg-white py-1.5 shadow-float"
+                className="absolute left-0 right-0 top-[calc(100%+0.75rem)] z-40 max-h-80 overflow-auto rounded-2xl border border-line bg-white p-1.5 shadow-float"
               >
                 {results.map((r, i) => (
                   <li
@@ -140,8 +143,8 @@ export default function HeroSearch({ categories }: { categories: { slug: string;
                     role="option"
                     aria-selected={i === active}
                     className={clsx(
-                      "flex cursor-pointer items-center justify-between gap-3 px-3.5 py-2.5 text-sm",
-                      i === active ? "bg-cream-200" : "hover:bg-cream/70",
+                      "flex cursor-pointer items-center justify-between gap-3 rounded-xl px-3.5 py-2.5 text-sm transition-colors",
+                      i === active ? "bg-sand text-ink" : "hover:bg-cream-50",
                     )}
                     onMouseEnter={() => setActive(i)}
                     onMouseDown={(e) => {
@@ -149,8 +152,8 @@ export default function HeroSearch({ categories }: { categories: { slug: string;
                       router.push(r.href);
                     }}
                   >
-                    <span className="font-medium text-forest">{r.name}</span>
-                    <span className="text-[0.68rem] uppercase tracking-[0.14em] text-muted">
+                    <span className="font-medium text-ink">{r.name}</span>
+                    <span className="font-mono text-[0.68rem] uppercase text-muted">
                       {r.kind === "destination" ? r.region : "Experience"}
                     </span>
                   </li>
@@ -159,23 +162,24 @@ export default function HeroSearch({ categories }: { categories: { slug: string;
             )}
           </div>
 
-          <div>
-            <label htmlFor="hero-interest" className="field-label px-1">
-              Travel interest
+          {/* Vibe / Interest */}
+          <div className="px-2">
+            <label htmlFor="hero-interest" className="block px-2 pt-1.5 text-[0.68rem] font-semibold text-ink">
+              Vibe
             </label>
             <select
               id="hero-interest"
               value={interest}
               onChange={(e) => setInterest(e.target.value)}
-              className="field h-[52px] appearance-none pr-9"
+              className="w-full appearance-none bg-transparent px-2 pb-2 pt-0.5 pr-8 text-[0.9rem] text-ink focus:outline-none"
               style={{
                 backgroundImage:
-                  "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%2373776F' stroke-width='2.2'><path d='M6 9l6 6 6-6'/></svg>\")",
+                  "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%236B7280' stroke-width='2'><path d='M6 9l6 6 6-6'/></svg>\")",
                 backgroundRepeat: "no-repeat",
-                backgroundPosition: "right 0.8rem center",
+                backgroundPosition: "right 0.5rem center",
               }}
             >
-              <option value="">Any interest</option>
+              <option value="">Any experience</option>
               {categories.map((c) => (
                 <option key={c.slug} value={c.slug}>
                   {c.name}
@@ -184,33 +188,46 @@ export default function HeroSearch({ categories }: { categories: { slug: string;
             </select>
           </div>
 
-          <button type="submit" className="btn btn-primary h-[52px] md:px-7">
-            Search
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2">
-              <path d="M5 12h14M13 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
+          {/* Submit */}
+          <button
+            type="submit"
+            className="flex h-12 items-center justify-center gap-2 rounded-xl bg-ink px-6 text-[0.88rem] font-semibold text-white transition hover:bg-forest md:rounded-full"
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.3">
+              <circle cx="11" cy="11" r="7" />
+              <path d="m20 20-3.5-3.5" strokeLinecap="round" />
             </svg>
+            Search
           </button>
         </div>
-
-        <div className="mt-3 flex flex-wrap items-center gap-x-2 gap-y-2 border-t border-line/80 px-1 pt-3">
-          <span className="text-[0.66rem] font-semibold uppercase tracking-[0.18em] text-muted">
-            Popular
-          </span>
-          {POPULAR.map((p) => (
-            <button
-              key={p}
-              type="button"
-              onClick={() => router.push(`/destinations?q=${encodeURIComponent(p)}`)}
-              className="rounded-full border border-line px-3 py-1 text-[0.78rem] text-forest transition hover:border-forest/[0.35] hover:bg-cream/60"
-            >
-              {p}
-            </button>
-          ))}
-          <span className="ml-auto hidden text-[0.72rem] text-muted sm:block">
-            Searching published TripNest destinations
-          </span>
-        </div>
       </form>
+
+      {/* Subtle popular pills */}
+      <div className="mt-3 flex flex-wrap items-center gap-1.5 px-1">
+        <span
+          className={clsx(
+            "mr-1 font-mono text-[0.68rem] uppercase tracking-wider",
+            isHero ? "text-white/60" : "text-muted",
+          )}
+        >
+          Popular
+        </span>
+        {POPULAR.map((p) => (
+          <button
+            key={p}
+            type="button"
+            onClick={() => router.push(`/destinations?q=${encodeURIComponent(p)}`)}
+            className={clsx(
+              "rounded-full px-3 py-1 text-[0.76rem] font-medium transition",
+              isHero
+                ? "border border-white/20 bg-white/10 text-white/90 backdrop-blur-md hover:bg-white/20"
+                : "border border-line bg-white text-ink hover:border-ink/30 hover:bg-sand",
+            )}
+          >
+            {p}
+          </button>
+        ))}
+      </div>
     </div>
   );
 }

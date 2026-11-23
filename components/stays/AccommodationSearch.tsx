@@ -11,10 +11,6 @@ const TYPES = [
   { value: "APARTMENT", label: "Apartments" },
 ];
 
-/**
- * Accommodation search + filter panel. Inline on desktop, a slide-up sheet on
- * mobile. Every filter maps to a real query parameter consumed by the server.
- */
 export default function AccommodationSearch({
   regions,
   priceRange,
@@ -67,12 +63,12 @@ export default function AccommodationSearch({
           value={q}
           onChange={(e) => setQ(e.target.value)}
           placeholder="Town, city or name"
-          className="field"
+          className="field rounded-xl"
         />
       </div>
       <div>
         <label htmlFor="stay-region" className="field-label">Region</label>
-        <select id="stay-region" value={region} onChange={(e) => setRegion(e.target.value)} className="field">
+        <select id="stay-region" value={region} onChange={(e) => setRegion(e.target.value)} className="field rounded-xl">
           <option value="">All regions</option>
           {regions.map((r) => (
             <option key={r} value={r}>{r}</option>
@@ -80,7 +76,7 @@ export default function AccommodationSearch({
         </select>
       </div>
       <fieldset>
-        <legend className="field-label">Accommodation type</legend>
+        <legend className="field-label">Stay type</legend>
         <div className="flex flex-wrap gap-2">
           {TYPES.map((t) => (
             <button
@@ -89,8 +85,10 @@ export default function AccommodationSearch({
               onClick={() => setType(type === t.value ? "" : t.value)}
               aria-pressed={type === t.value}
               className={clsx(
-                "rounded-full border px-3 py-1.5 text-[0.78rem] transition",
-                type === t.value ? "border-forest bg-forest text-cream" : "border-line bg-white text-forest hover:border-forest/35",
+                "rounded-full border px-3.5 py-1.5 text-[0.78rem] font-medium transition",
+                type === t.value
+                  ? "border-ink bg-ink text-white"
+                  : "border-line bg-white text-ink hover:border-ink/30 hover:bg-sand",
               )}
             >
               {t.label}
@@ -98,9 +96,9 @@ export default function AccommodationSearch({
           ))}
         </div>
       </fieldset>
-      <div className="grid grid-cols-2 gap-3">
+      <div className="grid grid-cols-2 gap-2.5">
         <div>
-          <label htmlFor="stay-min" className="field-label">Min price</label>
+          <label htmlFor="stay-min" className="field-label">Min (GHS)</label>
           <input
             id="stay-min"
             type="number"
@@ -109,11 +107,11 @@ export default function AccommodationSearch({
             value={minPrice}
             onChange={(e) => setMinPrice(e.target.value)}
             placeholder={`${priceRange.min}`}
-            className="field"
+            className="field rounded-xl font-mono text-sm"
           />
         </div>
         <div>
-          <label htmlFor="stay-max" className="field-label">Max price</label>
+          <label htmlFor="stay-max" className="field-label">Max (GHS)</label>
           <input
             id="stay-max"
             type="number"
@@ -122,24 +120,28 @@ export default function AccommodationSearch({
             value={maxPrice}
             onChange={(e) => setMaxPrice(e.target.value)}
             placeholder={`${priceRange.max}`}
-            className="field"
+            className="field rounded-xl font-mono text-sm"
           />
         </div>
       </div>
-      <p className="text-[0.7rem] text-muted">
-        Nightly prices in cedis. Listed range: {cedis(priceRange.min)} – {cedis(priceRange.max)}.
+      <p className="font-mono text-[0.68rem] text-muted">
+        Range: {cedis(priceRange.min)} – {cedis(priceRange.max)} / night
       </p>
       <div>
         <label htmlFor="stay-sort" className="field-label">Sort by</label>
-        <select id="stay-sort" value={sort} onChange={(e) => setSort(e.target.value)} className="field">
+        <select id="stay-sort" value={sort} onChange={(e) => setSort(e.target.value)} className="field rounded-xl">
           <option value="price_asc">Lowest price</option>
           <option value="price_desc">Highest price</option>
           <option value="recent">Recently added</option>
         </select>
       </div>
       <div className="flex gap-2 pt-1">
-        <button type="button" onClick={() => apply()} className="btn btn-primary flex-1">Apply filters</button>
-        <button type="button" onClick={reset} className="btn btn-outline">Reset</button>
+        <button type="button" onClick={() => apply()} className="btn btn-primary flex-1 rounded-xl">
+          Apply
+        </button>
+        <button type="button" onClick={reset} className="btn btn-outline rounded-xl">
+          Reset
+        </button>
       </div>
     </div>
   );
@@ -148,9 +150,10 @@ export default function AccommodationSearch({
     <>
       {/* Desktop panel */}
       <div className="hidden lg:block">
-        <div className="border border-line bg-white p-5">
+        <div className="sticky top-[calc(var(--header-h)+1.5rem)] rounded-2xl border border-line bg-white p-5 shadow-soft">
           <div className="mb-4 flex items-center justify-between">
-            <h2 className="font-display text-xl text-forest">Filters</h2>
+            <h2 className="font-sans text-[1.05rem] font-semibold tracking-[-0.02em] text-ink">Filters</h2>
+            <span className="font-mono text-[0.7rem] text-muted">{total} stays</span>
           </div>
           {fields}
         </div>
@@ -164,17 +167,19 @@ export default function AccommodationSearch({
           </svg>
           Filters{activeCount > 0 ? ` (${activeCount})` : ""}
         </button>
-        <span className="text-[0.78rem] text-muted">{total} results</span>
+        <span className="font-mono text-[0.76rem] text-muted">{total} results</span>
       </div>
 
       {/* Mobile sheet */}
       {open && (
         <div className="fixed inset-0 z-[70] lg:hidden" role="dialog" aria-modal="true" aria-label="Accommodation filters">
-          <button type="button" aria-label="Close filters" className="absolute inset-0 bg-ink/50" onClick={() => setOpen(false)} />
-          <div className="absolute inset-x-0 bottom-0 max-h-[88vh] overflow-y-auto rounded-t-2xl bg-cream p-5 pb-8">
+          <button type="button" aria-label="Close filters" className="absolute inset-0 bg-black/50 backdrop-blur-xs" onClick={() => setOpen(false)} />
+          <div className="absolute inset-x-0 bottom-0 max-h-[88vh] overflow-y-auto rounded-t-3xl bg-white p-5 pb-8 shadow-float">
             <div className="mb-4 flex items-center justify-between">
-              <h2 className="font-display text-2xl text-forest">Filters</h2>
-              <button type="button" onClick={() => setOpen(false)} className="text-sm font-semibold text-forest">Close</button>
+              <h2 className="font-sans text-lg font-semibold text-ink">Filters</h2>
+              <button type="button" onClick={() => setOpen(false)} className="rounded-full px-3 py-1 text-sm font-medium text-muted hover:bg-sand hover:text-ink">
+                Close
+              </button>
             </div>
             {fields}
           </div>

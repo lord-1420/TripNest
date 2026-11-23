@@ -44,18 +44,20 @@ export default function DashboardShell({
   const nav = (
     <nav aria-label="Dashboard" className="flex flex-col gap-1">
       {items.map((item) => {
-        const active = pathname === item.href || (item.href !== "/dashboard" && pathname.startsWith(`${item.href}/`));
+        const active =
+          pathname === item.href ||
+          (item.href !== "/dashboard" && item.href !== "/dashboard/admin" && pathname.startsWith(`${item.href}/`));
         return (
           <Link
             key={item.href}
             href={item.href}
             onClick={() => setOpen(false)}
             className={clsx(
-              "flex items-center gap-3 rounded-md px-3 py-2.5 text-[0.875rem] font-medium transition-colors",
-              active ? "bg-forest text-cream" : "text-ink/75 hover:bg-cream-200 hover:text-forest",
+              "flex items-center gap-3 rounded-xl px-3 py-2.5 text-[0.86rem] font-medium transition-colors",
+              active ? "bg-ink text-white" : "text-muted hover:bg-sand hover:text-ink",
             )}
           >
-            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" className="shrink-0">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" className="shrink-0">
               <path d={item.icon} strokeLinecap="round" strokeLinejoin="round" />
             </svg>
             {item.label}
@@ -66,12 +68,12 @@ export default function DashboardShell({
   );
 
   return (
-    <div className="min-h-screen bg-cream">
+    <div className="min-h-screen bg-cream-50">
       {/* Mobile top bar */}
-      <div className="sticky top-0 z-40 flex items-center justify-between gap-3 border-b border-line bg-cream/95 px-4 py-3 backdrop-blur md:hidden">
+      <div className="sticky top-0 z-40 flex items-center justify-between gap-3 border-b border-line bg-white/95 px-4 py-3 backdrop-blur md:hidden">
         <Logo size="sm" />
         <div className="flex items-center gap-2">
-          <span className="flex h-8 w-8 items-center justify-center rounded-full bg-forest text-[0.7rem] font-bold text-cream">
+          <span className="flex h-8 w-8 items-center justify-center rounded-full bg-ink text-[0.7rem] font-bold text-white">
             {initials(user.name)}
           </span>
           <button
@@ -79,7 +81,7 @@ export default function DashboardShell({
             onClick={() => setOpen((v) => !v)}
             aria-expanded={open}
             aria-controls="dash-nav"
-            className="flex h-9 w-9 items-center justify-center rounded-full border border-line text-forest"
+            className="flex h-9 w-9 items-center justify-center rounded-full border border-line text-ink"
           >
             <span className="sr-only">Toggle dashboard menu</span>
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
@@ -94,33 +96,38 @@ export default function DashboardShell({
         <aside
           id="dash-nav"
           className={clsx(
-            "fixed inset-y-0 left-0 z-40 w-[264px] shrink-0 border-r border-line bg-cream-50 px-4 py-6 transition-transform duration-300 md:sticky md:top-0 md:h-screen md:translate-x-0",
+            "fixed inset-y-0 left-0 z-40 w-[260px] shrink-0 border-r border-line bg-white px-4 py-6 transition-transform duration-300 md:sticky md:top-0 md:h-screen md:translate-x-0",
             open ? "translate-x-0" : "-translate-x-full",
           )}
         >
-          <div className="hidden md:block">
+          <div className="hidden px-2 md:block">
             <Logo />
           </div>
-          <div className="mb-6 mt-8 flex items-center gap-3 border border-line bg-white p-3 md:mt-8">
-            <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-forest text-[0.72rem] font-bold text-cream">
+          <div className="mb-6 mt-6 flex items-center gap-3 rounded-xl border border-line bg-cream-50 p-3">
+            <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-ink text-[0.72rem] font-bold text-white">
               {initials(user.name)}
             </span>
             <div className="min-w-0">
-              <p className="truncate text-[0.82rem] font-semibold text-forest">{user.name}</p>
-              <p className="truncate text-[0.68rem] uppercase tracking-[0.12em] text-muted">{user.role}</p>
+              <p className="truncate text-[0.84rem] font-semibold text-ink">{user.name}</p>
+              <p className="truncate font-mono text-[0.66rem] uppercase tracking-[0.1em] text-muted">
+                {user.role}
+              </p>
             </div>
           </div>
 
           {nav}
 
           <div className="mt-6 border-t border-line pt-4">
-            <Link href="/" className="flex items-center gap-2 px-3 py-2 text-[0.8rem] text-muted hover:text-forest">
+            <Link
+              href="/"
+              className="flex items-center gap-2 rounded-xl px-3 py-2 text-[0.82rem] text-muted transition hover:bg-sand hover:text-ink"
+            >
               ← Back to site
             </Link>
             <form action={signOutAction}>
               <button
                 type="submit"
-                className="flex w-full items-center gap-2 px-3 py-2 text-left text-[0.8rem] text-muted hover:text-forest"
+                className="flex w-full items-center gap-2 rounded-xl px-3 py-2 text-left text-[0.82rem] text-muted transition hover:bg-sand hover:text-ink"
               >
                 Sign out
               </button>
@@ -133,7 +140,7 @@ export default function DashboardShell({
             type="button"
             aria-label="Close menu"
             onClick={() => setOpen(false)}
-            className="fixed inset-0 z-30 bg-ink/40 md:hidden"
+            className="fixed inset-0 z-30 bg-black/40 md:hidden"
           />
         )}
 
@@ -142,11 +149,11 @@ export default function DashboardShell({
         </main>
       </div>
 
-      {/* Mobile logo when sidebar is hidden */}
+      {/* Mobile home shortcut */}
       <div className="fixed bottom-3 right-3 z-20 md:hidden">
         <Link
           href="/"
-          className="flex h-11 w-11 items-center justify-center rounded-full bg-forest text-cream shadow-float"
+          className="flex h-11 w-11 items-center justify-center rounded-full bg-ink text-white shadow-float"
           aria-label="TripNest home"
         >
           <LogoMark tone="light" size={20} />

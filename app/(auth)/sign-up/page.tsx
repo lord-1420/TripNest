@@ -3,7 +3,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import AuthForm from "@/components/auth/AuthForm";
 import SmartImage from "@/components/common/SmartImage";
-import { LogoMark } from "@/components/brand/Logo";
+import Logo from "@/components/brand/Logo";
 import { getSession, dashboardHome } from "@/lib/auth";
 
 export const metadata: Metadata = { title: "Create an account" };
@@ -14,8 +14,8 @@ export default async function SignUpPage() {
   if (user) redirect(dashboardHome(user.role));
 
   return (
-    <div className="grid min-h-screen lg:grid-cols-2">
-      <div className="relative hidden overflow-hidden bg-forest lg:block">
+    <div className="grid min-h-screen bg-white lg:grid-cols-2">
+      <div className="relative hidden overflow-hidden bg-[#0e1412] lg:block">
         <SmartImage
           src="/images/dest-ada-foah.jpg"
           alt="Palms standing in still water at the Volta estuary"
@@ -23,24 +23,20 @@ export default async function SignUpPage() {
           priority
           sizes="50vw"
           fallbackTone="light"
-          className="object-cover"
+          className="object-cover brightness-90"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-forest via-forest/45 to-forest/15" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-black/25" />
         <div className="absolute inset-0 flex flex-col justify-between p-12">
-          <Link href="/" className="inline-flex items-center gap-2.5 text-cream">
-            <LogoMark tone="light" size={30} />
-            <span className="font-display text-[1.35rem]">TripNest</span>
-          </Link>
+          <Logo tone="light" />
           <div>
-            <p className="eyebrow eyebrow-light">Free to use</p>
-            <p className="mt-3 max-w-sm font-display text-[2rem] leading-tight text-cream">
-              Discovering Ghana becomes planning an unforgettable journey.
+            <p className="max-w-md font-sans text-[2rem] font-semibold leading-[1.12] tracking-[-0.03em] text-white">
+              Plan Ghana with clarity, not spreadsheets.
             </p>
-            <ul className="mt-6 space-y-2 text-[0.86rem] text-cream/70">
-              <li>· Save destinations and experiences</li>
-              <li>· Build day-by-day itineraries</li>
-              <li>· Estimate costs in Ghana cedis</li>
-              <li>· List accommodation as a provider</li>
+            <ul className="mt-5 space-y-2 text-[0.88rem] text-white/75">
+              <li>Save destinations and experiences</li>
+              <li>Build day-by-day itineraries</li>
+              <li>Estimate costs in Ghana cedis</li>
+              <li>List accommodation as a provider</li>
             </ul>
           </div>
         </div>
@@ -48,17 +44,23 @@ export default async function SignUpPage() {
 
       <div className="flex flex-col justify-center px-6 py-12 md:px-16 lg:py-16">
         <div className="mx-auto w-full max-w-sm">
-          <Link href="/" className="mb-8 inline-flex items-center gap-2 text-forest lg:hidden">
-            <LogoMark size={26} />
-            <span className="font-display text-[1.25rem]">TripNest</span>
-          </Link>
-          <h1 className="display text-[2.1rem] leading-tight text-forest">Start your journey.</h1>
-          <p className="mt-2 text-[0.9rem] text-muted">
-            Create a free account to save places and start planning.
+          <div className="mb-8 lg:hidden">
+            <Logo tone="dark" />
+          </div>
+          <h1 className="font-sans text-[1.9rem] font-bold tracking-[-0.035em] text-ink">
+            Create an account
+          </h1>
+          <p className="mt-1.5 text-[0.9rem] text-muted">
+            Free to use — save places and start building your Ghana itinerary.
           </p>
           <div className="mt-7">
             <AuthForm mode="sign-up" />
           </div>
+          <p className="mt-6 text-center text-[0.78rem] text-muted">
+            <Link href="/" className="hover:text-ink">
+              ← Back to TripNest
+            </Link>
+          </p>
         </div>
       </div>
     </div>

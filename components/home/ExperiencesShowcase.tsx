@@ -9,14 +9,17 @@ export default function ExperiencesShowcase({ attractions }: { attractions: Attr
   if (!lead) return null;
 
   return (
-    <section className="border-y border-line bg-white py-24 md:py-32">
+    <section className="border-b border-line bg-white py-20 md:py-28">
       <div className="shell">
         <SectionHeading
-          eyebrow="Things worth doing"
-          title="Experiences worth discovering"
-          description="Heritage tours, canopy walks, waterfalls, wildlife sanctuaries and long beach afternoons — save the ones you want to remember."
+          eyebrow="Things to do"
+          title="Experiences worth saving"
+          description="Heritage tours, canopy walks, waterfalls, wildlife sanctuaries and long beach afternoons."
           action={
-            <Link href="/experiences" className="link-underline text-sm">
+            <Link
+              href="/experiences"
+              className="inline-flex items-center gap-1.5 rounded-full border border-line px-4 py-2 text-[0.82rem] font-semibold text-ink transition hover:border-ink/30 hover:bg-cream-50"
+            >
               All experiences <span aria-hidden>→</span>
             </Link>
           }
@@ -25,23 +28,23 @@ export default function ExperiencesShowcase({ attractions }: { attractions: Attr
         <div className="mt-10 grid gap-8 lg:grid-cols-12 lg:gap-10">
           <article className="group lg:col-span-6">
             <Link href={`/experiences/${lead.slug}`} className="block">
-              <div className="media media-zoom aspect-[4/3] shadow-[0_28px_70px_-38px_rgba(23,63,53,.65)]">
+              <div className="media media-zoom aspect-[4/3] rounded-2xl bg-sand">
                 <SmartImage
                   src={lead.image}
                   alt={lead.name}
                   fill
                   sizes="(max-width: 1024px) 100vw, 50vw"
-                  className="object-cover transition-transform duration-[1400ms] ease-editorial group-hover:scale-[1.045]"
+                  className="object-cover"
                 />
-                <span className="absolute left-3 top-3 rounded-full bg-cream/[0.92] px-2.5 py-1 text-[0.6rem] font-bold uppercase tracking-[0.12em] text-forest">
+                <span className="absolute left-3 top-3 rounded-full bg-white/92 px-2.5 py-1 text-[0.68rem] font-semibold text-ink backdrop-blur-md">
                   {lead.categories?.[0] ?? "Experience"}
                 </span>
               </div>
-              <h3 className="mt-5 display text-[clamp(1.6rem,2.4vw,2.15rem)] text-forest group-hover:text-forest-500">
+              <h3 className="mt-4 font-sans text-[clamp(1.35rem,2vw,1.75rem)] font-semibold tracking-[-0.025em] text-ink group-hover:text-forest">
                 {lead.name}
               </h3>
-              <p className="mt-2 max-w-lg text-[0.92rem] leading-relaxed text-muted">{lead.summary}</p>
-              <p className="mt-3 text-[0.72rem] uppercase tracking-[0.16em] text-muted/80">
+              <p className="mt-1.5 max-w-lg text-[0.9rem] leading-relaxed text-muted">{lead.summary}</p>
+              <p className="mt-2 font-mono text-[0.68rem] uppercase tracking-wider text-muted/80">
                 {lead.region}
                 {lead.destination_name ? ` · ${lead.destination_name}` : ""}
               </p>
@@ -49,20 +52,20 @@ export default function ExperiencesShowcase({ attractions }: { attractions: Attr
           </article>
 
           <div className="lg:col-span-6">
-            <div className="grid gap-x-8 gap-y-2 sm:grid-cols-2">
+            <div className="grid gap-x-6 gap-y-1 sm:grid-cols-2">
               {rest.slice(0, 4).map((a) => (
                 <ExperienceCard key={a.id} attraction={a} variant="row" className="border-b border-line" />
               ))}
             </div>
-            <div className="mt-6 border border-line bg-white p-5">
-              <p className="eyebrow eyebrow-forest">Save as you browse</p>
+            <div className="mt-6 rounded-2xl border border-line bg-cream-50 p-6">
+              <p className="eyebrow">Save as you browse</p>
               <p className="mt-2 text-[0.9rem] leading-relaxed text-muted">
-                Signed-in travellers can save attractions and destinations, then drop them straight into a
-                trip itinerary with an estimated cost.
+                Signed-in travellers can bookmark attractions and destinations, then drop them straight into
+                a dated itinerary with a running budget.
               </p>
               <div className="mt-4 flex flex-wrap gap-2">
                 <Link href="/sign-up" className="btn btn-primary btn-sm">
-                  Create a free account
+                  Create free account
                 </Link>
                 <Link href="/dashboard/saved" className="btn btn-outline btn-sm">
                   View saved places

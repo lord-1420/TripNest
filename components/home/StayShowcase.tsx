@@ -1,62 +1,56 @@
 import Link from "next/link";
 import SectionHeading from "@/components/ui/SectionHeading";
 import AccommodationCard, { TYPE_LABEL } from "@/components/stays/AccommodationCard";
-import SmartImage from "@/components/common/SmartImage";
 import type { Accommodation } from "@/lib/types";
 
-const TILES: { type: Accommodation["type"]; blurb: string; image: string }[] = [
-  { type: "HOTEL", blurb: "Comfortable rooms and reliable basics", image: "/images/dest-accra.jpg" },
-  { type: "HOSTEL", blurb: "Budget beds and sociable common rooms", image: "/images/att-jamestown.jpg" },
-  { type: "APARTMENT", blurb: "Your own kitchen and a slower pace", image: "/images/dest-ada-foah.jpg" },
+const TILES: { type: Accommodation["type"]; blurb: string }[] = [
+  { type: "HOTEL", blurb: "Rooms & reliable basics" },
+  { type: "HOSTEL", blurb: "Budget & social stays" },
+  { type: "APARTMENT", blurb: "Kitchens & slower pace" },
 ];
 
 export default function StayShowcase({ stays }: { stays: Accommodation[] }) {
   return (
-    <section className="bg-cream-50 py-20 md:py-28">
+    <section className="border-y border-line bg-cream-50 py-20 md:py-28">
       <div className="shell">
-      <SectionHeading
-        eyebrow="Sleep well, travel further"
-        title="Find somewhere to stay."
-        description="From comfortable hostels to welcoming apartments and hotels, find a place that suits your journey."
-        action={
-          <Link href="/stays" className="btn btn-outline btn-sm">
-            Explore all stays
-          </Link>
-        }
-      />
+        <SectionHeading
+          eyebrow="Places to stay"
+          title="Stays across Ghana."
+          description="Transparent indicative rates in cedis — from budget hostels to coastal apartments and city hotels."
+          action={
+            <Link
+              href="/stays"
+              className="inline-flex items-center gap-1.5 rounded-full border border-line bg-white px-4 py-2 text-[0.82rem] font-semibold text-ink transition hover:border-ink/30 hover:bg-sand"
+            >
+              Explore all stays <span aria-hidden>→</span>
+            </Link>
+          }
+        />
 
-      <div className="mt-9 grid gap-3 sm:grid-cols-3">
-        {TILES.map((tile) => (
-          <Link
-            key={tile.type}
-            href={`/stays?type=${tile.type}`}
-          className="group flex items-center gap-4 border border-line/80 bg-white/70 p-3 transition-all duration-500 hover:-translate-y-1 hover:border-gold/60 hover:shadow-float"
-          >
-            <div className="relative h-[62px] w-[62px] shrink-0 overflow-hidden">
-              <SmartImage src={tile.image} alt="" fill sizes="62px" className="object-cover transition-transform duration-700 group-hover:scale-105" />
-            </div>
-            <div>
-              <p className="font-display text-[1.1rem] leading-tight text-forest">{TYPE_LABEL[tile.type]}s</p>
-              <p className="mt-0.5 text-[0.74rem] leading-snug text-muted">{tile.blurb}</p>
-            </div>
-            <span aria-hidden className="ml-auto text-forest/30 transition-transform duration-500 group-hover:translate-x-1">
-              →
-            </span>
-          </Link>
-        ))}
-      </div>
+        {/* Airbnb-style minimal filter pills */}
+        <div className="mt-7 flex flex-wrap gap-2">
+          {TILES.map((tile) => (
+            <Link
+              key={tile.type}
+              href={`/stays?type=${tile.type}`}
+              className="inline-flex items-center gap-2 rounded-full border border-line bg-white px-4 py-2 text-[0.82rem] font-medium text-ink transition hover:border-ink/35 hover:bg-sand"
+            >
+              <span className="font-semibold">{TYPE_LABEL[tile.type]}s</span>
+              <span className="text-muted">· {tile.blurb}</span>
+            </Link>
+          ))}
+        </div>
 
-      <div className="mt-6 grid gap-4 md:grid-cols-3">
-        {stays.slice(0, 3).map((stay) => (
-          <AccommodationCard key={stay.id} stay={stay} />
-        ))}
-      </div>
+        <div className="mt-8 grid gap-x-5 gap-y-8 sm:grid-cols-2 lg:grid-cols-3">
+          {stays.slice(0, 6).map((stay) => (
+            <AccommodationCard key={stay.id} stay={stay} />
+          ))}
+        </div>
 
-      <p className="mt-4 text-[0.72rem] leading-relaxed text-muted">
-        TripNest does not take bookings or payments. Every listing links to the provider directly so you
-        can confirm availability with them. Sample listings in this development build are labelled, and
-        current prices are indicative only.
-      </p>
+        <p className="mt-8 text-[0.75rem] leading-relaxed text-muted">
+          TripNest does not take bookings or online payments — every listing links directly to the provider
+          so you can confirm availability with them.
+        </p>
       </div>
     </section>
   );

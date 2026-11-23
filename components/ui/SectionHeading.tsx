@@ -24,22 +24,22 @@ export default function SectionHeading({
   return (
     <div
       className={clsx(
-        "flex flex-col gap-6 md:flex-row md:items-end md:justify-between",
+        "flex flex-col gap-5 md:flex-row md:items-end md:justify-between",
         align === "center" && "md:flex-col md:items-center text-center",
         className,
       )}
     >
       <div className={clsx("max-w-2xl", align === "center" && "mx-auto")}>
         {eyebrow && (
-          <p className={clsx("eyebrow mb-3", tone === "light" ? "eyebrow-light" : "eyebrow-forest")}>
+          <p className={clsx("eyebrow mb-2.5", tone === "light" ? "eyebrow-light" : "text-muted")}>
             {eyebrow}
           </p>
         )}
         <Tag
           className={clsx(
-            "display text-balance",
-            tone === "light" ? "text-cream" : "text-forest",
-            "text-[clamp(1.9rem,3.2vw,2.9rem)]",
+            "font-sans font-semibold tracking-[-0.032em] text-balance leading-[1.08]",
+            tone === "light" ? "text-white" : "text-ink",
+            "text-[clamp(1.75rem,3vw,2.6rem)]",
           )}
         >
           {title}
@@ -47,8 +47,8 @@ export default function SectionHeading({
         {description && (
           <p
             className={clsx(
-              "mt-4 max-w-xl text-[0.98rem] leading-relaxed",
-              tone === "light" ? "text-cream/75" : "text-muted",
+              "mt-3 max-w-xl text-[0.96rem] leading-relaxed",
+              tone === "light" ? "text-white/70" : "text-muted",
               align === "center" && "mx-auto",
             )}
           >

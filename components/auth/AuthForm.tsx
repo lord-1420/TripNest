@@ -23,17 +23,17 @@ export default function AuthForm({ mode, next }: { mode: "sign-in" | "sign-up"; 
               autoComplete="name"
               required
               defaultValue={state.values?.name}
-              className="field"
+              className="field rounded-xl"
               placeholder="Akosua Danso"
             />
           </div>
           <fieldset>
-            <legend className="field-label">I am signing up as</legend>
+            <legend className="field-label">Account type</legend>
             <input type="hidden" name="role" value={role} />
-            <div className="grid grid-cols-2 gap-2">
+            <div className="grid grid-cols-2 gap-2.5">
               {[
-                { value: "TRAVELLER", title: "A traveller", body: "Save places, build trips and budgets" },
-                { value: "PROVIDER", title: "A provider", body: "List a hostel, hotel or apartment" },
+                { value: "TRAVELLER", title: "Traveller", body: "Save places & plan trips" },
+                { value: "PROVIDER", title: "Host / Provider", body: "List a stay or property" },
               ].map((option) => (
                 <button
                   key={option.value}
@@ -41,14 +41,14 @@ export default function AuthForm({ mode, next }: { mode: "sign-in" | "sign-up"; 
                   onClick={() => setRole(option.value as "TRAVELLER" | "PROVIDER")}
                   aria-pressed={role === option.value}
                   className={
-                    "border p-3 text-left transition " +
+                    "rounded-xl border p-3.5 text-left transition " +
                     (role === option.value
-                      ? "border-forest bg-cream-200"
-                      : "border-line bg-white hover:border-forest/30")
+                      ? "border-ink bg-sand ring-1 ring-ink"
+                      : "border-line bg-white hover:border-ink/30")
                   }
                 >
-                  <span className="block text-[0.86rem] font-semibold text-forest">{option.title}</span>
-                  <span className="mt-0.5 block text-[0.72rem] leading-snug text-muted">{option.body}</span>
+                  <span className="block text-[0.86rem] font-semibold text-ink">{option.title}</span>
+                  <span className="mt-0.5 block text-[0.74rem] leading-snug text-muted">{option.body}</span>
                 </button>
               ))}
             </div>
@@ -57,7 +57,7 @@ export default function AuthForm({ mode, next }: { mode: "sign-in" | "sign-up"; 
       )}
 
       <div>
-        <label htmlFor="email" className="field-label">Email address</label>
+        <label htmlFor="email" className="field-label">Email</label>
         <input
           id="email"
           name="email"
@@ -65,7 +65,7 @@ export default function AuthForm({ mode, next }: { mode: "sign-in" | "sign-up"; 
           autoComplete="email"
           required
           defaultValue={state.values?.email}
-          className="field"
+          className="field rounded-xl"
           placeholder="you@example.com"
         />
       </div>
@@ -79,33 +79,33 @@ export default function AuthForm({ mode, next }: { mode: "sign-in" | "sign-up"; 
           autoComplete={mode === "sign-in" ? "current-password" : "new-password"}
           required
           minLength={mode === "sign-up" ? 8 : undefined}
-          className="field"
+          className="field rounded-xl"
           placeholder={mode === "sign-up" ? "At least 8 characters" : "Your password"}
         />
       </div>
 
       {state.error && (
-        <p role="alert" className="border border-[#F0CFC7] bg-[#FBEAE6] px-3 py-2 text-[0.82rem] text-[#8C3524]">
+        <p role="alert" className="rounded-xl border border-red-200 bg-red-50 px-3.5 py-2.5 text-[0.82rem] text-red-700">
           {state.error}
         </p>
       )}
 
-      <button type="submit" disabled={pending} className="btn btn-primary w-full">
+      <button type="submit" disabled={pending} className="btn btn-primary w-full rounded-xl">
         {pending ? "Please wait…" : mode === "sign-in" ? "Sign in" : "Create account"}
       </button>
 
-      <p className="text-center text-[0.82rem] text-muted">
+      <p className="text-center text-[0.84rem] text-muted">
         {mode === "sign-in" ? (
           <>
             New to TripNest?{" "}
-            <Link href="/sign-up" className="font-semibold text-forest underline underline-offset-2">
+            <Link href="/sign-up" className="font-semibold text-ink underline underline-offset-2">
               Create an account
             </Link>
           </>
         ) : (
           <>
             Already have an account?{" "}
-            <Link href="/sign-in" className="font-semibold text-forest underline underline-offset-2">
+            <Link href="/sign-in" className="font-semibold text-ink underline underline-offset-2">
               Sign in
             </Link>
           </>

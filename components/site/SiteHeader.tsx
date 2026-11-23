@@ -9,7 +9,7 @@ import type { SessionUser } from "@/lib/types";
 import { initials } from "@/lib/format";
 
 const NAV = [
-  { href: "/explore", label: "Explore" },
+  { href: "/explore", label: "Explore 3D" },
   { href: "/destinations", label: "Destinations" },
   { href: "/stays", label: "Stays" },
   { href: "/experiences", label: "Experiences" },
@@ -59,17 +59,17 @@ export default function SiteHeader({
     <>
       <header
         className={clsx(
-          "fixed inset-x-0 top-0 z-50 transition-[background-color,box-shadow,border-color] duration-500",
+          "fixed inset-x-0 top-0 z-50 transition-all duration-300",
           transparent
-            ? "border-b border-transparent bg-gradient-to-b from-ink/[0.45] via-ink/[0.15] to-transparent"
-            : "border-b border-line bg-cream/95 backdrop-blur-md supports-[backdrop-filter]:bg-cream/[0.85]",
+            ? "border-b border-white/[0.08] bg-black/20 backdrop-blur-md"
+            : "border-b border-line/90 bg-white/90 backdrop-blur-xl",
         )}
         style={{ height: "var(--header-h)" }}
       >
         <div className="shell flex h-full items-center justify-between gap-6">
-          <div className="flex items-center gap-10">
+          <div className="flex items-center gap-8">
             <Logo tone={transparent ? "light" : "dark"} />
-            <nav aria-label="Primary" className="hidden items-center gap-7 lg:flex">
+            <nav aria-label="Primary" className="hidden items-center gap-1 lg:flex">
               {NAV.map((item) => {
                 const active = pathname === item.href || pathname.startsWith(`${item.href}/`);
                 return (
@@ -78,61 +78,65 @@ export default function SiteHeader({
                     href={item.href}
                     aria-current={active ? "page" : undefined}
                     className={clsx(
-                      "relative py-2 text-[0.875rem] font-medium transition-colors",
-                      transparent ? "text-cream/90 hover:text-white" : "text-ink/80 hover:text-forest",
-                      active && (transparent ? "text-white" : "text-forest"),
+                      "rounded-full px-3.5 py-2 text-[0.86rem] font-medium transition-colors",
+                      transparent
+                        ? active
+                          ? "bg-white/15 text-white"
+                          : "text-white/80 hover:bg-white/10 hover:text-white"
+                        : active
+                          ? "bg-sand text-ink"
+                          : "text-muted hover:bg-sand/70 hover:text-ink",
                     )}
                   >
                     {item.label}
-                    <span
-                      className={clsx(
-                        "absolute -bottom-0.5 left-0 h-px w-full origin-left scale-x-0 transition-transform duration-300",
-                        transparent ? "bg-gold" : "bg-forest",
-                        active && "scale-x-100",
-                      )}
-                    />
                   </Link>
                 );
               })}
             </nav>
           </div>
 
-          <div className="hidden items-center gap-3 lg:flex">
+          <div className="hidden items-center gap-2.5 lg:flex">
             {user ? (
-              <>
-                <Link
-                  href={dashboardFor(user.role)}
+              <Link
+                href={dashboardFor(user.role)}
+                className={clsx(
+                  "flex items-center gap-2 rounded-full border py-1 pl-1 pr-3.5 text-[0.82rem] font-semibold transition",
+                  transparent
+                    ? "border-white/25 bg-white/10 text-white hover:bg-white/20"
+                    : "border-line bg-white text-ink hover:border-ink/25 hover:bg-cream-50",
+                )}
+              >
+                <span
                   className={clsx(
-                    "flex items-center gap-2.5 rounded-full border py-1.5 pl-1.5 pr-3.5 text-[0.82rem] font-semibold transition",
-                    transparent
-                      ? "border-cream/40 text-cream hover:bg-white/10"
-                      : "border-line text-forest hover:border-forest/30 hover:bg-white",
+                    "flex h-7 w-7 items-center justify-center rounded-full text-[0.68rem] font-bold",
+                    transparent ? "bg-white text-ink" : "bg-ink text-white",
                   )}
                 >
-                  <span
-                    className={clsx(
-                      "flex h-7 w-7 items-center justify-center rounded-full text-[0.68rem] font-bold",
-                      transparent ? "bg-cream text-forest" : "bg-forest text-cream",
-                    )}
-                  >
-                    {initials(user.name)}
-                  </span>
-                  Dashboard
-                </Link>
-              </>
+                  {initials(user.name)}
+                </span>
+                Dashboard
+              </Link>
             ) : (
               <>
                 <Link
                   href="/sign-in"
                   className={clsx(
-                    "px-3 py-2 text-[0.875rem] font-semibold transition-colors",
-                    transparent ? "text-cream hover:text-white" : "text-forest hover:text-forest-500",
+                    "rounded-full px-3.5 py-2 text-[0.85rem] font-medium transition-colors",
+                    transparent ? "text-white/90 hover:bg-white/10 hover:text-white" : "text-ink/80 hover:bg-sand hover:text-ink",
                   )}
                 >
-                  Sign In
+                  Sign in
                 </Link>
-                <Link href="/sign-up" className={clsx("btn btn-sm", transparent ? "btn-gold" : "btn-primary")}>
-                  Get Started
+                <Link
+                  href="/sign-up"
+                  className={clsx(
+                    "rounded-full px-4 py-2 text-[0.84rem] font-semibold transition",
+                    transparent
+                      ? "bg-white text-ink hover:bg-white/90"
+                      : "bg-ink text-white hover:bg-ink/85",
+                  )}
+                >
+                  Get started
                 </Link>
               </>
             )}
@@ -145,31 +149,31 @@ export default function SiteHeader({
             aria-controls="mobile-nav"
             aria-label={open ? "Close menu" : "Open menu"}
             className={clsx(
-              "relative z-50 flex h-11 w-11 items-center justify-center rounded-full border transition lg:hidden",
+              "relative z-50 flex h-10 w-10 items-center justify-center rounded-full border transition lg:hidden",
               open
-                ? "border-forest/20 bg-white text-forest"
+                ? "border-line bg-white text-ink"
                 : transparent
-                  ? "border-cream/40 text-cream"
-                  : "border-line bg-white/70 text-forest",
+                  ? "border-white/30 bg-white/10 text-white"
+                  : "border-line bg-white text-ink",
             )}
           >
             <span className="sr-only">Menu</span>
-            <span className="relative block h-3.5 w-5">
+            <span className="relative block h-3.5 w-4">
               <span
                 className={clsx(
-                  "absolute left-0 block h-[1.5px] w-5 bg-current transition-all duration-300",
+                  "absolute left-0 block h-[1.5px] w-4 bg-current transition-all duration-300",
                   open ? "top-1.5 rotate-45" : "top-0",
                 )}
               />
               <span
                 className={clsx(
-                  "absolute left-0 top-1.5 block h-[1.5px] w-5 bg-current transition-all duration-300",
+                  "absolute left-0 top-1.5 block h-[1.5px] w-4 bg-current transition-all duration-300",
                   open && "opacity-0",
                 )}
               />
               <span
                 className={clsx(
-                  "absolute left-0 block h-[1.5px] w-5 bg-current transition-all duration-300",
+                  "absolute left-0 block h-[1.5px] w-4 bg-current transition-all duration-300",
                   open ? "top-1.5 -rotate-45" : "top-3",
                 )}
               />
@@ -182,7 +186,7 @@ export default function SiteHeader({
       <div
         id="mobile-nav"
         className={clsx(
-          "fixed inset-0 z-40 flex flex-col bg-cream px-6 pb-10 pt-[calc(var(--header-h)+1.5rem)] transition-all duration-300 lg:hidden",
+          "fixed inset-0 z-40 flex flex-col bg-white px-6 pb-10 pt-[calc(var(--header-h)+1.5rem)] transition-all duration-300 lg:hidden",
           open ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0",
         )}
         aria-hidden={!open}
@@ -192,10 +196,10 @@ export default function SiteHeader({
             <Link
               key={item.href}
               href={item.href}
-              className="flex items-center justify-between py-4 font-display text-2xl text-forest"
+              className="flex items-center justify-between py-4 text-xl font-semibold tracking-tight text-ink"
             >
               {item.label}
-              <span aria-hidden className="text-gold">→</span>
+              <span aria-hidden className="text-muted">→</span>
             </Link>
           ))}
         </nav>
@@ -221,7 +225,7 @@ export default function SiteHeader({
           )}
         </div>
         <p className="mt-auto pt-8 text-xs text-muted">
-          Discovering Ghana, then planning it — one place at a time.
+          Discover Ghana, then plan it — one place at a time.
         </p>
       </div>
     </>

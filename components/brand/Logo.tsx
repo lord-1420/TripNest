@@ -9,41 +9,34 @@ interface LogoProps {
   size?: "sm" | "md" | "lg";
 }
 
-const sizes = { sm: 26, md: 32, lg: 40 };
+const sizes = { sm: 24, md: 28, lg: 36 };
 
-/**
- * TripNest brand mark: a route ring with a nest cradle and a golden egg/dot.
- * The mark is intentionally simple so it works as a favicon and as a header lockup.
- */
-export function LogoMark({ tone = "dark", size = 32 }: { tone?: "dark" | "light"; size?: number }) {
-  const primary = tone === "light" ? "#F7F4EC" : "#173F35";
-  const gold = tone === "light" ? "#E2C99A" : "#C99A45";
+export function LogoMark({ tone = "dark", size = 28 }: { tone?: "dark" | "light"; size?: number }) {
+  const primary = tone === "light" ? "#FFFFFF" : "#111111";
+  const accent = tone === "light" ? "#F6E7C8" : "#D49B38";
   return (
     <svg
       width={size}
       height={size}
       viewBox="0 0 34 34"
       role="img"
-      aria-label="TripNest symbol — a nest cradling a golden egg"
+      aria-label="TripNest mark"
       className="shrink-0"
       fill="none"
     >
-      {/* egg */}
-      <circle cx="17" cy="14.6" r="4.7" fill={gold} />
-      {/* outer nest wall */}
+      <circle cx="17" cy="14.5" r="4.5" fill={accent} />
       <path
-        d="M4.4 16.4c2.5 7.3 7 11.2 12.6 11.2s10.1-3.9 12.6-11.2"
+        d="M4.6 16.4c2.4 7.1 6.9 11 12.4 11s10-3.9 12.4-11"
         stroke={primary}
-        strokeWidth="2.5"
+        strokeWidth="2.4"
         strokeLinecap="round"
       />
-      {/* inner weave */}
       <path
-        d="M9.4 18.3c1.8 4.2 4.5 6.4 7.6 6.4s5.8-2.2 7.6-6.4"
-        stroke={gold}
-        strokeWidth="1.5"
+        d="M9.6 18.3c1.7 4 4.3 6.2 7.4 6.2s5.7-2.2 7.4-6.2"
+        stroke={accent}
+        strokeWidth="1.6"
         strokeLinecap="round"
-        opacity="0.85"
+        opacity="0.9"
       />
     </svg>
   );
@@ -57,17 +50,17 @@ export default function Logo({
   size = "md",
 }: LogoProps) {
   const content = (
-    <span className={clsx("inline-flex items-center gap-2.5", className)}>
+    <span className={clsx("inline-flex items-center gap-2", className)}>
       <LogoMark tone={tone} size={sizes[size]} />
       {showWordmark && (
         <span
           className={clsx(
-            "font-display leading-none tracking-[-0.02em]",
-            size === "lg" ? "text-[1.9rem]" : size === "sm" ? "text-[1.15rem]" : "text-[1.4rem]",
-            tone === "light" ? "text-cream" : "text-forest",
+            "font-sans font-bold leading-none tracking-[-0.04em]",
+            size === "lg" ? "text-[1.6rem]" : size === "sm" ? "text-[1.05rem]" : "text-[1.2rem]",
+            tone === "light" ? "text-white" : "text-ink",
           )}
         >
-          Trip<span className={tone === "light" ? "text-gold-100" : "text-forest-500"}>Nest</span>
+          TripNest
         </span>
       )}
     </span>

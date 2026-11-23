@@ -3,14 +3,14 @@ import SmartImage from "@/components/common/SmartImage";
 import type { Destination } from "@/lib/types";
 
 /**
- * Paper card used in result grids — image first, then a compact information
- * block with region, categories and the destination's headline.
+ * Airbnb-inspired minimal destination card — rounded photo first, crisp
+ * typographic metadata directly below with zero bulky chrome.
  */
 export default function DestinationCard({ destination }: { destination: Destination }) {
   return (
-    <article className="group flex h-full flex-col border border-line bg-white transition-shadow duration-500 hover:shadow-card">
+    <article className="group flex h-full flex-col">
       <Link href={`/destinations/${destination.slug}`} className="block">
-        <div className="media media-zoom aspect-[4/3]">
+        <div className="media media-zoom aspect-[4/3] rounded-2xl bg-sand">
           <SmartImage
             src={destination.hero_image}
             alt={`${destination.name}, ${destination.region}`}
@@ -18,37 +18,27 @@ export default function DestinationCard({ destination }: { destination: Destinat
             sizes="(max-width: 768px) 100vw, 33vw"
             className="object-cover"
           />
-          <div className="absolute left-3 top-3 flex flex-wrap gap-1.5">
-            {destination.attraction_count ? (
-              <span className="rounded-full bg-cream/[0.92] px-2.5 py-1 text-[0.62rem] font-semibold uppercase tracking-[0.1em] text-forest">
-                {destination.attraction_count} experiences
-              </span>
-            ) : null}
-          </div>
+          {destination.attraction_count ? (
+            <span className="absolute left-3 top-3 rounded-full bg-white/90 px-2.5 py-1 text-[0.68rem] font-semibold text-ink backdrop-blur-md">
+              {destination.attraction_count} experiences
+            </span>
+          ) : null}
         </div>
       </Link>
-      <div className="flex flex-1 flex-col p-5">
-        <p className="text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-muted">
-          {destination.region}
-        </p>
-        <h3 className="mt-1.5 font-display text-[1.45rem] leading-tight text-forest">
-          <Link href={`/destinations/${destination.slug}`} className="transition-colors hover:text-forest-500">
-            {destination.name}
-          </Link>
-        </h3>
-        <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-muted">{destination.summary}</p>
-        <div className="mt-4 flex items-center justify-between gap-3 border-t border-line pt-3.5">
-          <span className="text-[0.72rem] text-muted">
-            {destination.categories?.slice(0, 2).join(" · ") || destination.region}
-          </span>
-          <Link
-            href={`/destinations/${destination.slug}`}
-            className="flex items-center gap-1 text-[0.78rem] font-semibold text-forest transition-colors hover:text-gold-600"
-          >
-            View guide
-            <span aria-hidden>→</span>
-          </Link>
+
+      <div className="mt-3 flex flex-1 flex-col">
+        <div className="flex items-baseline justify-between gap-2">
+          <h3 className="font-sans text-[1.04rem] font-semibold tracking-[-0.02em] text-ink">
+            <Link href={`/destinations/${destination.slug}`} className="transition-colors hover:text-forest">
+              {destination.name}
+            </Link>
+          </h3>
+          <span className="shrink-0 font-mono text-[0.68rem] text-muted">{destination.region}</span>
         </div>
+        <p className="mt-1 line-clamp-2 text-[0.86rem] leading-relaxed text-muted">{destination.summary}</p>
+        <p className="mt-2 text-[0.76rem] font-medium text-ink/60">
+          {destination.categories?.slice(0, 2).join(" · ") || destination.region}
+        </p>
       </div>
     </article>
   );

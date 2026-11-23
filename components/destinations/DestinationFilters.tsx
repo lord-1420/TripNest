@@ -43,40 +43,34 @@ export default function DestinationFilters({
   }
 
   return (
-    <div className="border border-line bg-white p-4 md:p-5">
+    <div className="space-y-4">
       <form
         onSubmit={(e) => {
           e.preventDefault();
           update({ q: term || null });
         }}
-        className="grid gap-3 md:grid-cols-[1.6fr_1fr_1fr_auto] md:items-end"
+        className="rounded-2xl border border-line bg-white p-3 shadow-soft"
         role="search"
         aria-label="Filter destinations"
       >
-        <div>
-          <label htmlFor="dest-q" className="field-label">
-            Search destinations
-          </label>
+        <div className="grid gap-2.5 md:grid-cols-[1.6fr_1fr_1fr_auto] md:items-center">
           <input
             id="dest-q"
+            aria-label="Search destinations"
             value={term}
             onChange={(e) => setTerm(e.target.value)}
-            placeholder="Name, region or keyword"
-            className="field"
+            placeholder="Search destination, region or keyword…"
+            className="field rounded-xl"
           />
-        </div>
-        <div>
-          <label htmlFor="dest-region" className="field-label">
-            Region
-          </label>
           <select
             id="dest-region"
-            className="field appearance-none bg-[right_0.8rem_center] bg-no-repeat pr-9"
+            aria-label="Filter by region"
+            className="field appearance-none rounded-xl bg-[right_0.8rem_center] bg-no-repeat pr-9"
             value={region}
             onChange={(e) => update({ region: e.target.value || null })}
             style={{
               backgroundImage:
-                "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%2373776F' stroke-width='2.2'><path d='M6 9l6 6 6-6'/></svg>\")",
+                "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%236B7280' stroke-width='2'><path d='M6 9l6 6 6-6'/></svg>\")",
             }}
           >
             <option value="">All regions</option>
@@ -86,43 +80,39 @@ export default function DestinationFilters({
               </option>
             ))}
           </select>
-        </div>
-        <div>
-          <label htmlFor="dest-sort" className="field-label">
-            Sort
-          </label>
           <select
             id="dest-sort"
-            className="field appearance-none pr-9"
+            aria-label="Sort destinations"
+            className="field appearance-none rounded-xl pr-9"
             value={sort}
             onChange={(e) => update({ sort: e.target.value })}
             style={{
               backgroundImage:
-                "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%2373776F' stroke-width='2.2'><path d='M6 9l6 6 6-6'/></svg>\")",
+                "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%236B7280' stroke-width='2'><path d='M6 9l6 6 6-6'/></svg>\")",
               backgroundRepeat: "no-repeat",
               backgroundPosition: "right 0.8rem center",
             }}
           >
-            <option value="featured">Editor&apos;s picks first</option>
+            <option value="featured">Featured first</option>
             <option value="az">A – Z</option>
             <option value="recent">Recently added</option>
           </select>
+          <button type="submit" className="btn btn-primary h-[46px] rounded-xl px-6">
+            Search
+          </button>
         </div>
-        <button type="submit" className="btn btn-primary h-[46px]">
-          Apply
-        </button>
       </form>
 
-      <div className="mt-4 flex flex-wrap items-center gap-2 border-t border-line pt-4">
-        <span className="text-[0.66rem] font-semibold uppercase tracking-[0.16em] text-muted">Interest</span>
+      {/* Airbnb-style horizontal category pill bar */}
+      <div className="flex flex-wrap items-center gap-2">
         <button
           type="button"
           onClick={() => update({ category: null })}
           className={clsx(
-            "rounded-full border px-3 py-1.5 text-[0.78rem] transition",
+            "rounded-full border px-3.5 py-1.5 text-[0.8rem] font-medium transition",
             !category
-              ? "border-forest bg-forest text-cream"
-              : "border-line text-forest hover:border-forest/35",
+              ? "border-ink bg-ink text-white"
+              : "border-line bg-white text-ink hover:border-ink/30 hover:bg-sand",
           )}
         >
           All
@@ -134,10 +124,10 @@ export default function DestinationFilters({
             onClick={() => update({ category: category === c.slug ? null : c.slug })}
             aria-pressed={category === c.slug}
             className={clsx(
-              "rounded-full border px-3 py-1.5 text-[0.78rem] transition",
+              "rounded-full border px-3.5 py-1.5 text-[0.8rem] font-medium transition",
               category === c.slug
-                ? "border-forest bg-forest text-cream"
-                : "border-line text-forest hover:border-forest/35",
+                ? "border-ink bg-ink text-white"
+                : "border-line bg-white text-ink hover:border-ink/30 hover:bg-sand",
             )}
           >
             {c.name}
@@ -145,20 +135,19 @@ export default function DestinationFilters({
         ))}
       </div>
 
-      <div className="mt-4 flex flex-wrap items-center gap-2 text-[0.78rem]">
-        <span className="text-muted" aria-live="polite">
+      <div className="flex flex-wrap items-center gap-2 text-[0.78rem]">
+        <span className="font-mono text-muted" aria-live="polite">
           {total} {total === 1 ? "destination" : "destinations"}
-          {active.length > 0 ? " match" : " available"}
         </span>
         {active.map((a) => (
           <button
             key={a.label}
             type="button"
             onClick={a.clear}
-            className="inline-flex items-center gap-1.5 rounded-full bg-cream-200 px-2.5 py-1 text-[0.72rem] font-medium text-forest hover:bg-cream-200/70"
+            className="inline-flex items-center gap-1.5 rounded-full bg-sand px-3 py-1 text-[0.74rem] font-medium text-ink hover:bg-line"
           >
             {a.label}
-            <span aria-hidden className="text-forest/50">✕</span>
+            <span aria-hidden className="text-muted">✕</span>
             <span className="sr-only">Remove filter</span>
           </button>
         ))}
@@ -166,7 +155,7 @@ export default function DestinationFilters({
           <button
             type="button"
             onClick={() => router.push("/destinations")}
-            className="text-[0.72rem] font-semibold text-forest underline underline-offset-2"
+            className="text-[0.74rem] font-semibold text-ink underline underline-offset-2"
           >
             Clear all
           </button>
