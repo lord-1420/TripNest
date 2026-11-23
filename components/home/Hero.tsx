@@ -1,71 +1,96 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
+import clsx from "clsx";
 import HeroSearch from "@/components/home/HeroSearch";
 
 const SCENES = [
-  { label: "Atlantic Coastline", region: "Western & Central" },
-  { label: "Cape Coast Castle", region: "Central Region" },
-  { label: "Kakum Canopy", region: "Rainforest" },
-  { label: "Wli Waterfalls", region: "Volta Region" },
-  { label: "Lake Volta", region: "Eastern & Volta" },
+  {
+    src: "/images/editorial-hero.jpg",
+    alt: "Golden-hour light on a palm-lined beach along Ghana's coast",
+    label: "Atlantic Coastline",
+    region: "Western & Central",
+    pos: "object-[50%_60%]",
+  },
+  {
+    src: "/images/att-cape-coast-castle.jpg",
+    alt: "Cape Coast Castle overlooking the Atlantic Ocean",
+    label: "Cape Coast Castle",
+    region: "Central Region",
+    pos: "object-center",
+  },
+  {
+    src: "/images/att-kakum.jpg",
+    alt: "Rainforest canopy walkway at Kakum National Park",
+    label: "Kakum Canopy",
+    region: "Rainforest",
+    pos: "object-center",
+  },
+  {
+    src: "/images/att-wli-falls.jpg",
+    alt: "Wli Waterfalls cascading down lush cliffs in the Volta Region",
+    label: "Wli Waterfalls",
+    region: "Volta Region",
+    pos: "object-[50%_35%]",
+  },
+  {
+    src: "/images/editorial-volta.jpg",
+    alt: "Calm waters and green hills along Lake Volta",
+    label: "Lake Volta",
+    region: "Eastern & Volta",
+    pos: "object-center",
+  },
 ];
 
+const SLIDE_MS = 5500;
+
 export default function Hero({
-  counts,
+  counts: _counts,
   categories,
 }: {
   counts: { destinations: number; experiences: number; stays: number };
   categories: { slug: string; name: string }[];
 }) {
-  const videoRef = useRef<HTMLVideoElement | null>(null);
-  const [paused, setPaused] = useState(false);
   const [sceneIndex, setSceneIndex] = useState(0);
+  const [paused, setPaused] = useState(false);
 
   useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
-    const onTimeUpdate = () => {
-      if (!video.duration || Number.isNaN(video.duration)) return;
-      const idx = Math.min(
-        SCENES.length - 1,
-        Math.floor((video.currentTime / video.duration) * SCENES.length),
-      );
-      setSceneIndex(idx);
-    };
-    video.addEventListener("timeupdate", onTimeUpdate);
-    return () => video.removeEventListener("timeupdate", onTimeUpdate);
-  }, []);
-
-  const togglePlayback = () => {
-    const video = videoRef.current;
-    if (!video) return;
-    if (video.paused) {
-      void video.play();
-      setPaused(false);
-    } else {
-      video.pause();
-      setPaused(true);
-    }
-  };
+    if (paused) return;
+    const id = window.setInterval(() => {
+      setSceneIndex((prev) => (prev + 1) % SCENES.length);
+    }, SLIDE_MS);
+    return () => window.clearInterval(id);
+  }, [paused]);
 
   return (
     <section className="relative isolate flex min-h-[min(860px,94svh)] flex-col justify-end overflow-hidden bg-[#0c1411]">
-      {/* Multi-scene Ghana background video with instant poster fallback */}
-      <div className="absolute inset-0 -z-10">
-        <video
-          ref={videoRef}
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="metadata"
-          poster="/images/editorial-hero.jpg"
-          className="h-full w-full object-cover object-center brightness-[0.82] contrast-[1.04] saturate-[1.06]"
-        >
-          <source src="/videos/hero-ghana.mp4" type="video/mp4" />
-        </video>
+      {/* Silky GPU-accelerated multi-scene backdrop */}
+      <div className="absolute inset-0 -z-10 overflow-hidden">
+        {SCENES.map((scene, i) => {
+          const active = i === sceneIndex;
+          return (
+            <div
+              key={scene.src}
+              aria-hidden={!active}
+              className={clsx(
+                "absolute inset-0 transition-opacity duration-[1400ms] ease-out",
+                active ? "opacity-100" : "opacity-0",
+              )}
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={scene.src}
+                alt={scene.alt}
+                className={clsx(
+                  "h-full w-full object-cover brightness-[0.82] contrast-[1.04] saturate-[1.06] will-change-transform transition-transform ease-linear",
+                  scene.pos,
+                  active && !paused ? "scale-[1.07] duration-[6500ms]" : "scale-100 duration-[1400ms]",
+                )}
+              />
+            </div>
+          );
+        })}
         <div className="absolute inset-0 bg-gradient-to-b from-black/45 via-black/20 via-[45%] to-black/75" />
       </div>
 
@@ -82,12 +107,12 @@ export default function Hero({
           </p>
         </div>
 
-        {/* Floating Airbnb-style search pill inside hero */}
+        {/* Floating Airbnb-style search pill */}
         <div className="mt-8 max-w-4xl">
           <HeroSearch categories={categories} variant="hero" />
         </div>
 
-        {/* Bottom bar: quick action + live scene indicator */}
+        {/* Bottom bar: quick action + interactive scene switcher */}
         <div className="mt-8 flex flex-wrap items-center justify-between gap-4 border-t border-white/15 pt-5">
           <div className="flex flex-wrap items-center gap-3">
             <Link
@@ -115,10 +140,28 @@ export default function Hero({
               </span>
               <span className="text-[0.72rem] text-white/55">· {SCENES[sceneIndex].region}</span>
             </div>
+
+            <div className="flex items-center gap-1.5" role="tablist" aria-label="Hero scenes">
+              {SCENES.map((s, i) => (
+                <button
+                  key={s.label}
+                  type="button"
+                  role="tab"
+                  aria-selected={i === sceneIndex}
+                  aria-label={`Show ${s.label}`}
+                  onClick={() => setSceneIndex(i)}
+                  className={clsx(
+                    "h-1.5 rounded-full transition-all duration-300",
+                    i === sceneIndex ? "w-5 bg-white" : "w-1.5 bg-white/35 hover:bg-white/65",
+                  )}
+                />
+              ))}
+            </div>
+
             <button
               type="button"
-              onClick={togglePlayback}
-              aria-label={paused ? "Play hero video" : "Pause hero video"}
+              onClick={() => setPaused((v) => !v)}
+              aria-label={paused ? "Resume slideshow" : "Pause slideshow"}
               className="flex h-8 w-8 items-center justify-center rounded-full border border-white/25 bg-black/30 text-white backdrop-blur-md transition hover:bg-white/20"
             >
               {paused ? (
