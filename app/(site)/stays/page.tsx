@@ -44,30 +44,29 @@ export default async function StaysPage({
   return (
     <>
       <PageHeader
-        eyebrow="Accommodation"
-        title={
-          <>
-            Find somewhere to stay.
-            <span className="block italic text-forest-500">From hostels to harbour houses.</span>
-          </>
-        }
-        description="Search real, published listings across Ghana. Filter by region, type and nightly price, then contact the provider directly — TripNest never takes a booking or a payment."
+        eyebrow="Stays"
+        title="Find somewhere to stay."
+        description="Compare hostels, apartments and hotels across Ghana with transparent rates in cedis — contact providers directly with zero booking fees."
       />
 
-      <section className="shell grid gap-8 py-10 lg:grid-cols-[300px_1fr] lg:gap-10 lg:py-14">
-        <aside className="lg:sticky lg:top-[calc(var(--header-h)+1.5rem)] lg:self-start">
+      <section className="shell grid gap-8 py-10 lg:grid-cols-[296px_1fr] lg:gap-10 lg:py-14">
+        <aside className="lg:self-start">
           <AccommodationSearch regions={regions} priceRange={priceRange} total={result.total} />
         </aside>
 
         <div>
           <div className="mb-5 flex flex-wrap items-center gap-2 text-[0.78rem]">
-            <span className="hidden text-muted lg:inline">
-              {result.total} {result.total === 1 ? "place" : "places"} to stay
+            <span className="hidden font-mono text-muted lg:inline">
+              {result.total} {result.total === 1 ? "stay" : "stays"}
             </span>
             {activeChips.map((chip) => (
-              <Link key={chip.label} href={chip.href} className="inline-flex items-center gap-1.5 rounded-full bg-cream-200 px-2.5 py-1 text-[0.72rem] font-medium text-forest">
+              <Link
+                key={chip.label}
+                href={chip.href}
+                className="inline-flex items-center gap-1.5 rounded-full bg-sand px-3 py-1 text-[0.74rem] font-medium text-ink hover:bg-line"
+              >
                 {chip.label}
-                <span aria-hidden className="text-forest/50">✕</span>
+                <span aria-hidden className="text-muted">✕</span>
                 <span className="sr-only">Remove filter</span>
               </Link>
             ))}
@@ -76,7 +75,7 @@ export default async function StaysPage({
           {result.items.length === 0 ? (
             <EmptyState
               title="No stays match those filters"
-              description="Widen the price range or try a different region. New listings are added as providers submit them for review."
+              description="Widen the price range or try a different region."
               action={
                 <Link href="/stays" className="btn btn-primary btn-sm">
                   Reset search
@@ -85,7 +84,7 @@ export default async function StaysPage({
             />
           ) : (
             <>
-              <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
+              <div className="grid gap-x-5 gap-y-8 sm:grid-cols-2 xl:grid-cols-3">
                 {result.items.map((stay) => (
                   <AccommodationCard key={stay.id} stay={stay} />
                 ))}
@@ -99,13 +98,14 @@ export default async function StaysPage({
             </>
           )}
 
-          <div className="mt-10 border border-line bg-white p-5">
-            <h2 className="font-display text-xl text-forest">How TripNest stays work</h2>
-            <ul className="mt-3 space-y-2 text-[0.85rem] leading-relaxed text-muted">
-              <li>· Every listing is submitted by a provider and reviewed before it is published.</li>
-              <li>· Prices are indicative nightly rates in cedis and are confirmed by the provider.</li>
-              <li>· You contact the provider by phone, WhatsApp or email — there is no booking engine.</li>
-              <li>· Some photographs are labelled area illustrations rather than property photos.</li>
+          <div className="mt-12 rounded-2xl border border-line bg-cream-50 p-6">
+            <h2 className="font-sans text-[1.05rem] font-semibold tracking-[-0.02em] text-ink">
+              How TripNest stays work
+            </h2>
+            <ul className="mt-3 space-y-2 text-[0.86rem] leading-relaxed text-muted">
+              <li>Every listing is submitted by a local provider and reviewed before publishing.</li>
+              <li>Nightly rates are indicative prices in Ghana cedis confirmed directly with the host.</li>
+              <li>No middleman fees — reach providers directly via phone, WhatsApp, or email.</li>
             </ul>
           </div>
         </div>

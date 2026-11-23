@@ -47,15 +47,10 @@ export default async function ExperiencesPage({
     <>
       <PageHeader
         eyebrow="Experiences"
-        title={
-          <>
-            Things worth doing,
-            <span className="block italic text-forest-500">places worth the detour.</span>
-          </>
-        }
-        description="Every published attraction in TripNest — from the castles of the Central Region to shrines in the Upper East. Save what appeals, then add it to a trip."
+        title="Things worth doing across Ghana."
+        description="From coastal forts and rainforest canopy walks to hidden waterfalls and northern shrines — bookmark favourites to add them to your itinerary."
       >
-        <form action="/experiences" role="search" className="flex flex-wrap gap-2">
+        <form action="/experiences" role="search" className="flex max-w-xl flex-wrap gap-2">
           <label htmlFor="exp-q" className="sr-only">
             Search experiences
           </label>
@@ -63,12 +58,12 @@ export default async function ExperiencesPage({
             id="exp-q"
             name="q"
             defaultValue={q ?? ""}
-            placeholder="Search experiences, towns or regions"
-            className="field max-w-sm flex-1"
+            placeholder="Search experiences, towns or regions…"
+            className="field flex-1 rounded-xl"
           />
           {category && <input type="hidden" name="category" value={category} />}
           {hidden && <input type="hidden" name="hidden" value="1" />}
-          <button type="submit" className="btn btn-primary">
+          <button type="submit" className="btn btn-primary rounded-xl px-6">
             Search
           </button>
         </form>
@@ -77,8 +72,10 @@ export default async function ExperiencesPage({
           <Link
             href={buildHref({ category: null, hidden: null })}
             className={clsx(
-              "rounded-full border px-3 py-1.5 text-[0.78rem] transition",
-              !category && !hidden ? "border-forest bg-forest text-cream" : "border-line bg-white text-forest hover:border-forest/35",
+              "rounded-full border px-3.5 py-1.5 text-[0.8rem] font-medium transition",
+              !category && !hidden
+                ? "border-ink bg-ink text-white"
+                : "border-line bg-white text-ink hover:border-ink/30 hover:bg-sand",
             )}
           >
             All experiences
@@ -86,21 +83,23 @@ export default async function ExperiencesPage({
           <Link
             href={buildHref({ hidden: hidden ? null : "1" })}
             className={clsx(
-              "rounded-full border px-3 py-1.5 text-[0.78rem] transition",
-              hidden ? "border-gold bg-gold text-[#22180a]" : "border-line bg-white text-forest hover:border-gold",
+              "rounded-full border px-3.5 py-1.5 text-[0.8rem] font-medium transition",
+              hidden
+                ? "border-ink bg-ink text-white"
+                : "border-line bg-white text-ink hover:border-ink/30 hover:bg-sand",
             )}
           >
-            Hidden gems only
+            Hidden gems
           </Link>
           {categories.map((c) => (
             <Link
               key={c.slug}
               href={buildHref({ category: category === c.slug ? null : c.slug })}
               className={clsx(
-                "rounded-full border px-3 py-1.5 text-[0.78rem] transition",
+                "rounded-full border px-3.5 py-1.5 text-[0.8rem] font-medium transition",
                 category === c.slug
-                  ? "border-forest bg-forest text-cream"
-                  : "border-line bg-white text-forest hover:border-forest/35",
+                  ? "border-ink bg-ink text-white"
+                  : "border-line bg-white text-ink hover:border-ink/30 hover:bg-sand",
               )}
             >
               {c.name}
@@ -110,11 +109,11 @@ export default async function ExperiencesPage({
       </PageHeader>
 
       <section className="shell py-12 md:py-16">
-        <p className="mb-6 text-[0.82rem] text-muted">
+        <p className="mb-6 font-mono text-[0.78rem] text-muted">
           {result.total} experience{result.total === 1 ? "" : "s"}
-          {hidden ? " flagged as hidden gems" : ""}
-          {category ? ` in ${categories.find((c) => c.slug === category)?.name}` : ""}
-          {q ? ` matching “${q}”` : ""}
+          {hidden ? " · hidden gems" : ""}
+          {category ? ` · ${categories.find((c) => c.slug === category)?.name}` : ""}
+          {q ? ` · “${q}”` : ""}
         </p>
 
         {result.items.length === 0 ? (

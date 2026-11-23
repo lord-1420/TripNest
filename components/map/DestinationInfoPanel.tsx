@@ -36,34 +36,43 @@ export default function DestinationInfoPanel({
       {location && (
         <motion.aside
           key={`${location.kind}-${location.slug}`}
-          initial={{ opacity: 0, y: 18, scale: 0.98 }}
+          initial={{ opacity: 0, y: 12, scale: 0.99 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
-          exit={{ opacity: 0, y: 12, scale: 0.98 }}
-          transition={{ duration: 0.28, ease: [0.22, 0.61, 0.36, 1] }}
+          exit={{ opacity: 0, y: 8, scale: 0.99 }}
+          transition={{ duration: 0.22, ease: [0.22, 0.61, 0.36, 1] }}
           aria-label={`${location.name} destination details`}
-          className="relative overflow-hidden border border-cream/20 bg-[#10231f]/95 text-cream shadow-[0_24px_80px_-30px_rgba(0,0,0,.75)] backdrop-blur-xl"
+          className="relative overflow-hidden rounded-2xl border border-line bg-white text-ink shadow-float"
         >
-          <div className="grid grid-cols-[112px_1fr]">
-            <div className="relative min-h-[148px] bg-forest">
+          <div className="grid grid-cols-[110px_1fr]">
+            <div className="relative min-h-[144px] bg-sand">
               <SmartImage
                 src={location.image}
                 alt={location.name}
                 fill
-                sizes="112px"
+                sizes="110px"
                 fallbackLabel={location.name}
-                fallbackTone="light"
                 className="object-cover"
               />
-              <span className="absolute inset-0 bg-gradient-to-t from-ink/35 to-transparent" />
             </div>
             <div className="min-w-0 p-4 pr-10">
-              <p className="eyebrow eyebrow-light text-[0.58rem]">{location.region}, Ghana</p>
-              <h2 className="mt-1 font-display text-[1.42rem] leading-tight text-cream">{location.name}</h2>
-              <p className="mt-2 line-clamp-3 text-[0.78rem] leading-relaxed text-cream/70">{location.description}</p>
+              <p className="font-mono text-[0.64rem] uppercase tracking-wider text-muted">
+                {location.region}, Ghana
+              </p>
+              <h2 className="mt-0.5 font-sans text-[1.22rem] font-semibold leading-tight tracking-[-0.025em] text-ink">
+                {location.name}
+              </h2>
+              <p className="mt-1.5 line-clamp-3 text-[0.8rem] leading-relaxed text-muted">
+                {location.description}
+              </p>
               {location.categories.length > 0 && (
                 <div className="mt-2 flex flex-wrap gap-1">
                   {location.categories.slice(0, 2).map((item) => (
-                    <span key={item} className="rounded-full border border-gold-100/20 px-2 py-0.5 text-[0.57rem] uppercase tracking-[0.1em] text-gold-100/75">{item.replaceAll("-", " ")}</span>
+                    <span
+                      key={item}
+                      className="rounded-full bg-sand px-2.5 py-0.5 text-[0.66rem] font-medium capitalize text-ink"
+                    >
+                      {item.replaceAll("-", " ")}
+                    </span>
                   ))}
                 </div>
               )}
@@ -74,48 +83,39 @@ export default function DestinationInfoPanel({
             type="button"
             onClick={onClose}
             aria-label="Close destination details"
-            className="absolute right-2.5 top-2.5 flex h-8 w-8 items-center justify-center rounded-full border border-cream/20 bg-ink/35 text-cream transition hover:bg-cream/15 focus-visible:outline-cream"
+            className="absolute right-2.5 top-2.5 flex h-8 w-8 items-center justify-center rounded-full border border-line bg-white text-muted transition hover:border-ink/30 hover:text-ink"
           >
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <path d="m6 6 12 12M18 6 6 18" strokeLinecap="round" />
             </svg>
           </button>
 
-          <div className="grid grid-cols-2 gap-4 border-t border-cream/10 px-4 py-3">
+          <div className="grid grid-cols-2 gap-4 border-t border-line bg-cream-50 px-4 py-3">
             <div>
-              <p className="text-[0.58rem] font-semibold uppercase tracking-[0.16em] text-gold-100/75">Best time</p>
-              <p className="mt-1 line-clamp-2 text-[0.72rem] leading-snug text-cream/80">
+              <p className="font-mono text-[0.62rem] uppercase tracking-wider text-muted">Best time</p>
+              <p className="mt-1 line-clamp-2 text-[0.76rem] leading-snug text-ink">
                 {location.best_time ?? "Check local conditions before travelling."}
               </p>
             </div>
             <div>
-              <p className="text-[0.58rem] font-semibold uppercase tracking-[0.16em] text-gold-100/75">Travel note</p>
-              <p className="mt-1 line-clamp-2 text-[0.72rem] leading-snug text-cream/80">
-                {location.getting_there ?? location.nearest_town ?? "Open the guide for local travel information."}
+              <p className="font-mono text-[0.62rem] uppercase tracking-wider text-muted">Travel note</p>
+              <p className="mt-1 line-clamp-2 text-[0.76rem] leading-snug text-ink">
+                {location.getting_there ?? location.nearest_town ?? "Open the guide for local travel details."}
               </p>
             </div>
           </div>
 
-          {location.travelTips && location.travelTips.length > 0 && (
-            <div className="border-t border-cream/10 px-4 py-3">
-              <p className="text-[0.58rem] font-semibold uppercase tracking-[0.16em] text-gold-100/75">Travel tips</p>
-              <p className="mt-1 line-clamp-2 text-[0.72rem] leading-relaxed text-cream/75">
-                {location.travelTips[0].title}: {location.travelTips[0].body}
-              </p>
-            </div>
-          )}
-
           {related.length > 0 && (
-            <div className="border-t border-cream/10 px-4 py-3">
-              <p className="text-[0.58rem] font-semibold uppercase tracking-[0.16em] text-gold-100/75">
-                Nearby experiences &amp; activities
+            <div className="border-t border-line px-4 py-3">
+              <p className="font-mono text-[0.62rem] uppercase tracking-wider text-muted">
+                Nearby experiences
               </p>
               <div className="mt-1.5 flex flex-wrap gap-1.5">
                 {related.slice(0, 3).map((place) => (
                   <Link
                     key={`${place.kind}-${place.slug}`}
                     href={place.href}
-                    className="rounded-full border border-cream/15 px-2.5 py-1 text-[0.67rem] text-cream/80 transition hover:border-gold/60 hover:text-cream"
+                    className="rounded-full border border-line bg-white px-2.5 py-1 text-[0.72rem] font-medium text-ink transition hover:border-ink/30 hover:bg-sand"
                   >
                     {place.name}
                   </Link>
@@ -124,18 +124,21 @@ export default function DestinationInfoPanel({
             </div>
           )}
 
-          <div className="flex flex-wrap items-center gap-2 border-t border-cream/10 p-3.5">
-            <Link href={location.href} className="btn btn-gold btn-sm">
-              Explore guide <span aria-hidden>→</span>
+          <div className="flex flex-wrap items-center gap-2 border-t border-line p-3.5">
+            <Link href={location.href} className="btn btn-primary btn-sm">
+              Open guide <span aria-hidden>→</span>
             </Link>
-            {planHref && <Link href={planHref} className="btn btn-ghost-light btn-sm">Plan a trip</Link>}
+            {planHref && (
+              <Link href={planHref} className="btn btn-outline btn-sm">
+                Plan a trip
+              </Link>
+            )}
             <SaveButton
               kind={location.kind}
               id={location.id}
               initialSaved={location.saved}
               nextPath="/explore"
-              label="Save place"
-              tone="dark"
+              label="Save"
             />
           </div>
         </motion.aside>

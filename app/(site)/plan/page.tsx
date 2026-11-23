@@ -14,19 +14,19 @@ export const dynamic = "force-dynamic";
 const FEATURES = [
   {
     title: "Save as you browse",
-    body: "Destinations and experiences both have a save action. Nothing is duplicated — saving twice is just saving.",
+    body: "Destinations and experiences both have one-click saving so your shortlist stays in one clean place.",
   },
   {
     title: "Dated itineraries",
-    body: "Trips have start and end dates. Every day gets its own section, with start times, notes and per-stop cost estimates.",
+    body: "Set trip start and end dates, organise every day with stops, times, notes, and cost estimates.",
   },
   {
-    title: "Budgets that add up",
-    body: "Category totals, itinerary estimates and a grand total in cedis — rounded to two decimals so the numbers reconcile.",
+    title: "Budgets in cedis",
+    body: "Category totals, per-stop estimates, and a live grand total in GHS that reconciles automatically.",
   },
   {
     title: "Real places only",
-    body: "Every destination, experience and stay in TripNest comes from the database. No invented reviews, ratings or availability.",
+    body: "Every destination, experience and stay comes directly from our dataset — no invented ratings or clutter.",
   },
 ];
 
@@ -37,31 +37,34 @@ export default async function PlanPage() {
   return (
     <>
       <PageHeader
-        eyebrow="Trip planning"
-        title={
-          <>
-            Discover Ghana.
-            <span className="block italic text-forest-500">Then actually plan it.</span>
-          </>
-        }
-        description="TripNest is built around one idea: the places that catch your eye should become a plan you can follow — with dates, stops and a budget you can check."
+        eyebrow="Trip Planner"
+        title="Discover Ghana, then plan it cleanly."
+        description="Turn the places that catch your eye into a real day-by-day itinerary with dates, stops, and a realistic budget in Ghana cedis."
       >
         <div className="flex flex-wrap gap-3">
-          <Link href={cta} className="btn btn-primary">Start Planning Your Trip</Link>
-          <Link href="/destinations" className="btn btn-outline">Explore destinations</Link>
+          <Link href={cta} className="btn btn-primary">
+            Start planning
+          </Link>
+          <Link href="/destinations" className="btn btn-outline">
+            Browse destinations
+          </Link>
         </div>
       </PageHeader>
 
       <TripPlanningSteps />
 
-      <section className="border-t border-line bg-sand py-16 md:py-20">
+      <section className="border-y border-line bg-cream-50 py-16 md:py-24">
         <div className="shell">
-          <p className="eyebrow eyebrow-forest">What makes it work</p>
-          <h2 className="mt-2 display text-display-md">Four things TripNest does properly</h2>
-          <div className="mt-8 grid gap-px overflow-hidden border border-line bg-line sm:grid-cols-2">
+          <p className="eyebrow">Built for clarity</p>
+          <h2 className="mt-2 font-sans text-[clamp(1.65rem,2.8vw,2.3rem)] font-semibold tracking-[-0.03em] text-ink">
+            Four things TripNest does properly
+          </h2>
+          <div className="mt-8 grid gap-4 sm:grid-cols-2">
             {FEATURES.map((f) => (
-              <div key={f.title} className="bg-white p-6">
-                <h3 className="font-display text-[1.3rem] text-forest">{f.title}</h3>
+              <div key={f.title} className="rounded-2xl border border-line bg-white p-6">
+                <h3 className="font-sans text-[1.08rem] font-semibold tracking-[-0.02em] text-ink">
+                  {f.title}
+                </h3>
                 <p className="mt-2 text-[0.9rem] leading-relaxed text-muted">{f.body}</p>
               </div>
             ))}
@@ -72,43 +75,49 @@ export default async function PlanPage() {
       <section className="shell py-16 md:py-20">
         <div className="grid gap-10 lg:grid-cols-2 lg:gap-16">
           <div>
-            <p className="eyebrow eyebrow-forest">Who it is for</p>
-            <h2 className="mt-2 display text-display-md">Built for first-time travellers</h2>
-            <ul className="mt-5 space-y-3 text-[0.94rem] leading-relaxed text-ink/80">
-              <li>· Students and budget-conscious travellers planning around long weekends.</li>
-              <li>· First-time visitors who want the practical detail before they commit.</li>
-              <li>· Solo travellers who want a clear plan without a tour group.</li>
-              <li>· Anyone exploring Ghana who wants to understand a place, not just book it.</li>
+            <p className="eyebrow">Who it is for</p>
+            <h2 className="mt-2 font-sans text-[1.5rem] font-semibold tracking-[-0.028em] text-ink">
+              Built for first-time travellers
+            </h2>
+            <ul className="mt-4 space-y-2.5 text-[0.92rem] leading-relaxed text-muted">
+              <li>Students and budget-conscious travellers planning weekend or holiday trips.</li>
+              <li>First-time visitors who want practical regional details before committing.</li>
+              <li>Solo travellers who want a structured plan without booking a tour group.</li>
             </ul>
           </div>
           <div>
-            <p className="eyebrow eyebrow-forest">What we do not do</p>
-            <h2 className="mt-2 display text-display-md">No bookings, no invented reviews</h2>
-            <ul className="mt-5 space-y-3 text-[0.94rem] leading-relaxed text-ink/80">
-              <li>· TripNest does not take reservations or payments for accommodation.</li>
-              <li>· We do not publish ratings, availability or opening hours we cannot verify.</li>
-              <li>· We do not publish fares or journey times as fact — ask locally, then plan around it.</li>
-              <li>· An enquiry with a provider is not a confirmed booking.</li>
+            <p className="eyebrow">Transparent by design</p>
+            <h2 className="mt-2 font-sans text-[1.5rem] font-semibold tracking-[-0.028em] text-ink">
+              No hidden fees, no invented reviews
+            </h2>
+            <ul className="mt-4 space-y-2.5 text-[0.92rem] leading-relaxed text-muted">
+              <li>TripNest does not process reservations or take commissions on stays.</li>
+              <li>We never invent ratings, reviews, or unverified opening hours.</li>
+              <li>Enquiries go straight to local providers so you confirm directly.</li>
             </ul>
-            <p className="mt-5 text-[0.76rem] leading-relaxed text-muted">
-              Read more about how content is handled on the{" "}
-              <Link href="/about" className="underline decoration-line underline-offset-2 hover:text-forest">about page</Link>.
-            </p>
           </div>
         </div>
       </section>
 
-      <section className="border-t border-line bg-forest py-16 text-cream">
-        <div className="shell flex flex-col items-start gap-6 md:flex-row md:items-center md:justify-between">
-          <div>
-            <h2 className="display text-display-md text-cream">Ready to build the plan?</h2>
-            <p className="mt-2 max-w-lg text-[0.94rem] text-cream/70">
-              Create a free account, save a few places and start a trip. You can add costs as you go.
-            </p>
-          </div>
-          <div className="flex flex-wrap gap-3">
-            <Link href={cta} className="btn btn-gold">Start planning</Link>
-            <Link href="/experiences?hidden=1" className="btn btn-ghost-light">See hidden gems</Link>
+      <section className="bg-white pb-20 pt-4">
+        <div className="shell">
+          <div className="flex flex-col items-start justify-between gap-6 rounded-3xl bg-[#0e1412] p-8 text-white md:flex-row md:items-center md:p-12">
+            <div>
+              <h2 className="font-sans text-[clamp(1.6rem,3vw,2.2rem)] font-semibold tracking-[-0.03em] text-white">
+                Ready to build your itinerary?
+              </h2>
+              <p className="mt-2 max-w-lg text-[0.94rem] text-white/70">
+                Create a free account, save a few places, and put together your trip in minutes.
+              </p>
+            </div>
+            <div className="flex flex-wrap gap-3">
+              <Link href={cta} className="btn btn-gold">
+                Start planning
+              </Link>
+              <Link href="/explore" className="btn btn-ghost-light">
+                Open 3D map
+              </Link>
+            </div>
           </div>
         </div>
       </section>

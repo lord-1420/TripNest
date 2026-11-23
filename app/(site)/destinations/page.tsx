@@ -39,21 +39,16 @@ export default async function DestinationsPage({
   return (
     <>
       <PageHeader
-        eyebrow="Destination discovery"
-        title={
-          <>
-            Every corner of Ghana,
-            <span className="block italic text-forest-500">read properly.</span>
-          </>
-        }
-        description="Seventeen destinations across coast, forest, savannah and city — each with a full guide, its attractions, places to stay and practical travel notes."
+        eyebrow="Destinations"
+        title="Explore Ghana, region by region."
+        description="Seventeen curated destinations across coast, rainforest, savannah and city — each with local stays, experiences, and practical notes."
       >
         <DestinationFilters regions={regions} categories={categories} total={result.total} />
       </PageHeader>
 
       <section className="shell py-12 md:py-16">
         {isFiltered && (
-          <p className="mb-6 text-[0.82rem] text-muted">
+          <p className="mb-6 font-mono text-[0.78rem] text-muted">
             {result.total} result{result.total === 1 ? "" : "s"}
             {q ? ` for “${q}”` : ""}
             {region ? ` in ${region}` : ""}
@@ -64,7 +59,7 @@ export default async function DestinationsPage({
         {result.items.length === 0 ? (
           <EmptyState
             title="No destinations match those filters"
-            description="Try a broader region, a different interest, or search for a town like Cape Coast or Kumasi."
+            description="Try a broader region, a different vibe, or search for a town like Cape Coast or Kumasi."
             action={
               <Link href="/destinations" className="btn btn-primary btn-sm">
                 Reset filters
@@ -73,7 +68,7 @@ export default async function DestinationsPage({
           />
         ) : (
           <>
-            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            <div className="grid gap-x-6 gap-y-9 md:grid-cols-2 lg:grid-cols-3">
               {result.items.map((d, i) =>
                 i === 0 && page === 1 && !isFiltered ? (
                   <div key={d.id} className="md:col-span-2 lg:col-span-2">
@@ -94,13 +89,18 @@ export default async function DestinationsPage({
         )}
 
         {gems.length > 0 && (
-          <div className="mt-16 border-t border-line pt-10">
+          <div className="mt-16 border-t border-line pt-12">
             <div className="flex flex-wrap items-end justify-between gap-3">
               <div>
-                <p className="eyebrow eyebrow-forest">Keep looking</p>
-                <h2 className="mt-2 display text-display-md">Hidden gems in Ghana</h2>
+                <p className="eyebrow">Off the beaten path</p>
+                <h2 className="mt-2 font-sans text-[1.6rem] font-semibold tracking-[-0.03em] text-ink">
+                  Hidden gems in Ghana
+                </h2>
               </div>
-              <Link href="/experiences?hidden=1" className="link-underline text-sm">
+              <Link
+                href="/experiences?hidden=1"
+                className="inline-flex items-center gap-1.5 rounded-full border border-line px-4 py-2 text-[0.8rem] font-semibold text-ink transition hover:border-ink/30 hover:bg-cream-50"
+              >
                 All hidden gems <span aria-hidden>→</span>
               </Link>
             </div>
@@ -109,24 +109,24 @@ export default async function DestinationsPage({
                 <Link
                   key={gem.id}
                   href={`/experiences/${gem.slug}`}
-                  className="group flex gap-4 border border-line bg-white p-3"
+                  className="group flex items-center gap-3.5 rounded-2xl border border-line bg-white p-3 transition hover:border-ink/25 hover:bg-cream-50"
                 >
-                  <div className="relative h-20 w-24 shrink-0 overflow-hidden">
+                  <div className="relative h-20 w-24 shrink-0 overflow-hidden rounded-xl bg-sand">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
                       src={gem.image}
                       alt={gem.name}
-                      className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                     />
                   </div>
-                  <div>
-                    <p className="text-[0.6rem] font-semibold uppercase tracking-[0.16em] text-muted">
+                  <div className="min-w-0">
+                    <p className="font-mono text-[0.62rem] uppercase tracking-wider text-muted">
                       {gem.region}
                     </p>
-                    <h3 className="mt-1 font-display text-[1.05rem] leading-tight text-forest group-hover:text-gold-600">
+                    <h3 className="mt-0.5 truncate font-sans text-[0.98rem] font-semibold text-ink group-hover:text-forest">
                       {gem.name}
                     </h3>
-                    <p className="mt-1 line-clamp-2 text-[0.74rem] text-muted">{gem.summary}</p>
+                    <p className="mt-1 line-clamp-2 text-[0.76rem] text-muted">{gem.summary}</p>
                   </div>
                 </Link>
               ))}
