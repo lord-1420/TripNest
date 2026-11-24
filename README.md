@@ -50,6 +50,13 @@ file are recorded in `public/image-credits.json` and rendered on `/credits`. Whe
 photograph of a specific property was unavailable, the listing is marked `AREA_ILLUSTRATION` and the
 card labels it "Area photo" rather than implying it shows the property.
 
+The background clips in `public/videos` are trimmed and muted for the web. The source footage is available under the [Pexels license](https://www.pexels.com/license/).
+
+- [Cape Coast Castle](https://www.pexels.com/video/cape-coast-castle-ghana-20543532/) by INDIGENA STUDIO
+- [Accra coastline](https://www.pexels.com/video/people-on-shore-by-boat-near-accra-in-ghana-10295867/) by Experience Africa Today
+- [Peduase](https://www.pexels.com/video/4k-aerial-view-of-peduase-ghana-landscape-29798054/) by LG Sekyere
+- [Independence Arch](https://www.pexels.com/video/aerial-view-of-independence-arch-in-accra-ghana-30444352/) by Bismark Dzahene-Quarshie Jnr.
+
 ## Project layout
 
 ```

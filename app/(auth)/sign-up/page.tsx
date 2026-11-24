@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import AuthForm from "@/components/auth/AuthForm";
-import SmartImage from "@/components/common/SmartImage";
+import BackgroundVideo from "@/components/common/BackgroundVideo";
 import Logo from "@/components/brand/Logo";
 import { getSession, dashboardHome } from "@/lib/auth";
 
@@ -15,17 +15,14 @@ export default async function SignUpPage() {
 
   return (
     <div className="grid min-h-screen bg-white lg:grid-cols-2">
-      <div className="relative hidden overflow-hidden bg-[#0e1412] lg:block">
-        <SmartImage
-          src="/images/dest-ada-foah.jpg"
-          alt="Palms standing in still water at the Volta estuary"
-          fill
-          priority
-          sizes="50vw"
-          fallbackTone="light"
-          className="object-cover brightness-90"
+      <div className="relative isolate hidden overflow-hidden bg-[#0e1412] lg:block">
+        <BackgroundVideo
+          src="/videos/accra-shore.mp4"
+          poster="/videos/accra-shore.webp"
+          overlayClassName="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-black/25"
+          buttonClassName="absolute right-12 top-12 z-10"
+          desktopOnly
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-black/25" />
         <div className="absolute inset-0 flex flex-col justify-between p-12">
           <Logo tone="light" />
           <div>
