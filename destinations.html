@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Destinations · TripNest</title>
+  <meta name="description" content="Editorial guides to destinations across Ghana — regions, best times to visit, stays and practical travel notes." />
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body data-page="destinations">
+  <a href="#main" class="skip-link">Skip to content</a>
+  <div id="site-header"></div>
+
+  <main id="main">
+    <header class="page-header">
+      <div class="shell page-header-inner">
+        <p class="eyebrow">Discover Ghana</p>
+        <h1 class="display-lg">Destinations across Ghana</h1>
+        <p class="lede">
+          Coastal heritage towns, highland retreats, crater lakes and savannah parks — each with practical travel notes, stays, and nearby experiences.
+        </p>
+      </div>
+    </header>
+
+    <section class="section-sm">
+      <div class="shell">
+        <div class="filter-bar cols-4">
+          <div>
+            <label class="field-label" for="dest-q">Search</label>
+            <input id="dest-q" type="search" class="field" placeholder="Search city, town, or vibe…" />
+          </div>
+          <div>
+            <label class="field-label" for="dest-region">Region</label>
+            <select id="dest-region" class="field"></select>
+          </div>
+          <div>
+            <label class="field-label" for="dest-category">Vibe</label>
+            <select id="dest-category" class="field"></select>
+          </div>
+          <div>
+            <label class="field-label" for="dest-sort">Sort</label>
+            <select id="dest-sort" class="field">
+              <option value="featured">Featured</option>
+              <option value="az">Name (A–Z)</option>
+              <option value="region">Region</option>
+            </select>
+          </div>
+        </div>
+
+        <div id="dest-cat-pills" class="filter-pills"></div>
+
+        <div class="results-meta">
+          <div id="dest-results-meta"></div>
+          <button type="button" id="dest-clear" class="btn btn-outline btn-xs">Clear filters</button>
+        </div>
+
+        <div id="dest-grid" class="grid-3"></div>
+      </div>
+    </section>
+  </main>
+
+  <div id="site-footer"></div>
+
+  <script src="js/data.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/catalog.js"></script>
+</body>
+</html>

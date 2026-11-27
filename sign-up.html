@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Create an account · TripNest</title>
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body data-page="sign-up">
+  <div class="auth-split">
+    <!-- Left Drone Video Visual -->
+    <div class="auth-visual">
+      <div class="hero-bg-wrap" aria-hidden="true">
+        <video id="auth-bg-video" class="hero-video" data-src="assets/videos/accra-shore.mp4" poster="assets/videos/accra-shore.webp" muted playsinline preload="none"></video>
+        <div style="position:absolute;inset:0;background:linear-gradient(0deg,rgba(0,0,0,0.86) 0%,rgba(0,0,0,0.35) 55%,rgba(0,0,0,0.25) 100%)"></div>
+      </div>
+      <button type="button" id="auth-video-toggle" class="video-toggle-btn" style="position:absolute;right:3rem;top:3rem;z-index:10" aria-label="Pause background video"></button>
+      <div class="auth-visual-content">
+        <div id="auth-logo-light"></div>
+        <div>
+          <p class="auth-visual-quote">Plan Ghana with clarity, not spreadsheets.</p>
+          <ul class="mt-5" style="display:grid;gap:0.45rem;font-size:0.88rem;color:rgba(255,255,255,0.78)">
+            <li>· Save destinations and experiences</li>
+            <li>· Build day-by-day itineraries</li>
+            <li>· Estimate costs in Ghana cedis</li>
+            <li>· List accommodation as a provider</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Sign-Up Form -->
+    <main class="auth-form-pane">
+      <div class="auth-form-box">
+        <div id="auth-logo-dark" class="mb-4"></div>
+        <h1 class="display-md">Create an account</h1>
+        <p class="text-sm text-muted mt-2">Free to use — save places and start building your Ghana itinerary.</p>
+
+        <form id="signup-form" class="mt-6" style="display:grid;gap:1rem">
+          <div id="auth-error" class="alert alert-error hidden" role="alert"></div>
+          <div>
+            <label class="field-label" for="signup-name">Full name</label>
+            <input id="signup-name" type="text" class="field" required placeholder="e.g. Kofi Mensah" />
+          </div>
+          <div>
+            <label class="field-label" for="signup-email">Email</label>
+            <input id="signup-email" type="email" class="field" required placeholder="you@example.com" />
+          </div>
+          <div>
+            <label class="field-label" for="signup-password">Password</label>
+            <input id="signup-password" type="password" class="field" required minlength="6" placeholder="At least 6 characters" />
+          </div>
+          <div>
+            <label class="field-label" for="signup-role">Account type</label>
+            <select id="signup-role" class="field">
+              <option value="TRAVELLER">Traveller — save places &amp; build trips</option>
+              <option value="PROVIDER">Accommodation provider — submit stays</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-primary btn-block mt-2">Create free account</button>
+        </form>
+
+        <p class="text-sm text-muted mt-5" style="text-align:center">
+          Already have an account? <a href="sign-in.html" class="link-underline">Sign in</a>
+        </p>
+
+        <p class="text-xs text-muted mt-6" style="text-align:center">
+          <a href="index.html">← Back to TripNest</a>
+        </p>
+      </div>
+    </main>
+  </div>
+
+  <script src="js/data.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/auth.js"></script>
+</body>
+</html>

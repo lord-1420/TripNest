@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy · TripNest</title>
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body data-page="privacy">
+  <a href="#main" class="skip-link">Skip to content</a>
+  <div id="site-header"></div>
+
+  <main id="main">
+    <header class="page-header">
+      <div class="shell page-header-inner">
+        <p class="eyebrow">Legal</p>
+        <h1 class="display-lg">Privacy</h1>
+        <p class="lede">What TripNest stores, why, and how you can remove it. Written to match what this browser-based application actually does.</p>
+      </div>
+    </header>
+
+    <section class="section-sm">
+      <div class="shell prose-editorial body-copy" style="max-width:48rem">
+        <h2 class="display-sm mb-3">Local browser storage</h2>
+        <p>This version of TripNest runs entirely in your browser using HTML, CSS, and vanilla JavaScript. Accounts, saved places, trips, itineraries, budgets, packing checklists, and provider listings are saved in your browser's <code>localStorage</code> on this device — nothing is transmitted to a remote server.</p>
+        <h2 class="display-sm mb-3 mt-8">Maps and imagery</h2>
+        <p>Interactive maps use Leaflet (OpenStreetMap tiles) and MapLibre GL (Esri World Imagery tiles). When a map loads, your browser requests map tiles directly from those providers.</p>
+        <h2 class="display-sm mb-3 mt-8">Your choices</h2>
+        <p>You can delete any trip at any time from the trip planner, or click <strong>Reset demo data</strong> inside the dashboard sidebar (or clear site data in your browser) to wipe all stored data immediately.</p>
+        <h2 class="display-sm mb-3 mt-8">Contact</h2>
+        <p>Questions about this policy can go to <a href="contact.html" class="link-underline">the contact page</a>.</p>
+      </div>
+    </section>
+  </main>
+
+  <div id="site-footer"></div>
+
+  <script src="js/data.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/pages.js"></script>
+</body>
+</html>

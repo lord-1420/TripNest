@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Experiences &amp; Hidden Gems · TripNest</title>
+  <meta name="description" content="Heritage sites, canopy walks, waterfalls, wildlife sanctuaries, and hidden gems across Ghana." />
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body data-page="experiences">
+  <a href="#main" class="skip-link">Skip to content</a>
+  <div id="site-header"></div>
+
+  <main id="main">
+    <header class="page-header">
+      <div class="shell page-header-inner">
+        <p class="eyebrow">Things to do</p>
+        <h1 class="display-lg">Experiences across Ghana</h1>
+        <p class="lede">
+          Canopy walkways, historic forts, waterfalls, craft villages, and hidden gems — bookmark favourites and drop them straight into your itinerary.
+        </p>
+      </div>
+    </header>
+
+    <section class="section-sm">
+      <div class="shell">
+        <div class="filter-bar cols-4">
+          <div>
+            <label class="field-label" for="exp-q">Search</label>
+            <input id="exp-q" type="search" class="field" placeholder="Search waterfalls, castles, wildlife…" />
+          </div>
+          <div>
+            <label class="field-label" for="exp-region">Region</label>
+            <select id="exp-region" class="field"></select>
+          </div>
+          <div>
+            <label class="field-label" for="exp-category">Category</label>
+            <select id="exp-category" class="field"></select>
+          </div>
+          <div style="display:flex;align-items:flex-end">
+            <button type="button" id="exp-hidden-toggle" class="filter-pill" style="min-height:44px;width:100%;justify-content:center" aria-pressed="false">
+              ★ Hidden gems only
+            </button>
+          </div>
+        </div>
+
+        <div class="results-meta">
+          <div id="exp-results-meta"></div>
+          <button type="button" id="exp-clear" class="btn btn-outline btn-xs">Clear filters</button>
+        </div>
+
+        <div id="exp-grid" class="grid-3"></div>
+      </div>
+    </section>
+  </main>
+
+  <div id="site-footer"></div>
+
+  <script src="js/data.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/catalog.js"></script>
+</body>
+</html>

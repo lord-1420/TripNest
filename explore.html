@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Explore Ghana in 3D · TripNest</title>
+  <meta name="description" content="Explore Ghana's destinations on an interactive 3D satellite globe and 2D OpenStreetMap atlas." />
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@5.2.0/dist/maplibre-gl.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body data-page="explore">
+  <a href="#main" class="skip-link">Skip to content</a>
+  <div id="site-header"></div>
+
+  <main id="main">
+    <section class="explore-section">
+      <div class="shell">
+        <header class="section-header mb-4" style="margin-bottom:2rem">
+          <div class="section-header-copy">
+            <p class="eyebrow">3D Atlas · Ghana</p>
+            <h1 class="display-lg mt-2">Explore Ghana in 3D.</h1>
+            <p class="lede mt-2">
+              Spin the globe, click any marker, or pick a curated stop to inspect destinations and nearby experiences.
+            </p>
+          </div>
+          <p id="explore-count" class="font-mono text-xs text-muted"></p>
+        </header>
+
+        <div class="explore-layout">
+          <!-- Interactive 3D Globe / 2D Map Stage -->
+          <div class="explore-map-col">
+            <div class="explore-stage">
+              <div id="globe-canvas" class="explore-canvas"></div>
+              <div id="leaflet-canvas" class="explore-canvas hidden"></div>
+
+              <!-- Floating Search Pill -->
+              <div id="explore-search-wrap" class="explore-search-bar">
+                <div class="explore-search-pill">
+                  <svg class="text-muted" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink:0">
+                    <circle cx="11" cy="11" r="7"></circle>
+                    <path d="m20 20-3.5-3.5" stroke-linecap="round"></path>
+                  </svg>
+                  <input id="explore-q" type="search" aria-label="Search Ghana places" placeholder="Search places, regions or vibes…" />
+                  <select id="explore-cat" aria-label="Filter by vibe"></select>
+                </div>
+                <div id="explore-search-results" class="search-dropdown"></div>
+              </div>
+
+              <!-- Map Mode & Zoom Controls -->
+              <div class="explore-controls">
+                <button type="button" id="btn-mode-3d" class="map-ctl-btn is-active">3D Globe</button>
+                <button type="button" id="btn-mode-2d" class="map-ctl-btn">2D Map</button>
+                <button type="button" id="btn-map-reset" class="map-ctl-btn">Reset view</button>
+                <button type="button" id="btn-map-zoom-in" class="map-ctl-btn is-icon" aria-label="Zoom in">+</button>
+                <button type="button" id="btn-map-zoom-out" class="map-ctl-btn is-icon" aria-label="Zoom out">−</button>
+              </div>
+
+              <!-- Hover Tooltip -->
+              <div id="explore-hover-tip" class="hidden" style="position:absolute;bottom:4rem;right:1rem;z-index:20;max-width:230px;border-radius:14px;border:1px solid var(--line);background:rgba(255,255,255,0.96);padding:0.65rem 0.9rem;box-shadow:var(--shadow-float);pointer-events:none"></div>
+            </div>
+
+            <p id="explore-attribution" class="text-xs text-muted mt-3">
+              3D Satellite Globe via MapLibre GL &amp; Esri World Imagery · Ghana borders via Natural Earth.
+            </p>
+          </div>
+
+          <!-- Right Rail: Preview Panel + Featured Route Stops -->
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <div>
+                <p class="eyebrow">Featured route</p>
+                <h2 class="display-sm mt-1">Choose a stop</h2>
+              </div>
+              <span id="explore-stops-count" class="font-mono text-xs text-muted"></span>
+            </div>
+
+            <div id="explore-info-slot"></div>
+            <div id="explore-stops-list" style="display:grid;gap:0.65rem"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="site-footer"></div>
+
+  <script src="https://unpkg.com/maplibre-gl@5.2.0/dist/maplibre-gl.js"></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/geo-data.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/explore.js"></script>
+</body>
+</html>

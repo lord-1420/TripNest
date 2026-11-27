@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Photo &amp; Video Credits · TripNest</title>
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body data-page="credits">
+  <a href="#main" class="skip-link">Skip to content</a>
+  <div id="site-header"></div>
+
+  <main id="main">
+    <header class="page-header">
+      <div class="shell page-header-inner">
+        <p class="eyebrow">Attribution</p>
+        <h1 class="display-lg">Photo &amp; video credits</h1>
+        <p class="lede">
+          TripNest uses photography from Wikimedia Commons under open licences and aerial Ghana background clips under the Pexels licence.
+        </p>
+      </div>
+    </header>
+
+    <section class="section-sm">
+      <div class="shell">
+        <div class="info-card mb-4">
+          <p class="eyebrow eyebrow-forest">Background drone footage (Pexels licence)</p>
+          <ul class="mt-3 text-sm text-muted" style="display:grid;gap:0.4rem">
+            <li>· <a href="https://www.pexels.com/video/cape-coast-castle-ghana-20543532/" target="_blank" rel="noopener noreferrer" class="link-underline">Cape Coast Castle</a> by INDIGENA STUDIO</li>
+            <li>· <a href="https://www.pexels.com/video/people-on-shore-by-boat-near-accra-in-ghana-10295867/" target="_blank" rel="noopener noreferrer" class="link-underline">Accra coastline</a> by Experience Africa Today</li>
+            <li>· <a href="https://www.pexels.com/video/4k-aerial-view-of-peduase-ghana-landscape-29798054/" target="_blank" rel="noopener noreferrer" class="link-underline">Peduase aerial landscape</a> by LG Sekyere</li>
+            <li>· <a href="https://www.pexels.com/video/aerial-view-of-independence-arch-in-accra-ghana-30444352/" target="_blank" rel="noopener noreferrer" class="link-underline">Independence Arch, Accra</a> by Bismark Dzahene-Quarshie Jnr.</li>
+          </ul>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-3 text-xs text-muted mt-6 mb-4">
+          <span id="credits-count"></span>
+          <span>·</span>
+          <span>Licences: CC BY, CC BY-SA, CC0 and public domain</span>
+          <span>·</span>
+          <a href="https://commons.wikimedia.org" target="_blank" rel="noopener noreferrer" class="link-underline">Wikimedia Commons</a>
+        </div>
+
+        <ul id="credits-list" class="data-list"></ul>
+      </div>
+    </section>
+  </main>
+
+  <div id="site-footer"></div>
+
+  <script src="js/data.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/pages.js"></script>
+</body>
+</html>

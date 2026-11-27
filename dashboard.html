@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard · TripNest</title>
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body data-page="dashboard">
+  <div class="dash-wrap">
+    <!-- Mobile Top Bar -->
+    <div class="dash-mobile-bar">
+      <div id="dash-logo-mobile"></div>
+      <div class="flex items-center gap-2">
+        <span id="dash-mobile-avatar" class="avatar-circle"></span>
+        <button type="button" id="dash-menu-btn" class="btn btn-outline btn-xs" aria-expanded="false" aria-controls="dash-sidebar" aria-label="Toggle dashboard menu">Menu</button>
+      </div>
+    </div>
+
+    <div class="dash-layout">
+      <!-- Sidebar -->
+      <aside id="dash-sidebar" class="dash-sidebar">
+        <div id="dash-logo-desktop"></div>
+        <div id="dash-user-card" class="dash-user-card"></div>
+        <nav id="dash-nav" class="dash-nav" aria-label="Dashboard"></nav>
+
+        <div class="dash-sidebar-foot">
+          <a href="index.html" class="dash-nav-item">← Back to public site</a>
+          <button type="button" id="dash-reset" class="dash-nav-item" style="font-size:0.78rem">Reset demo data</button>
+          <button type="button" id="dash-signout" class="dash-nav-item" style="color:var(--danger)">Sign out</button>
+        </div>
+      </aside>
+
+      <!-- Main Workspace -->
+      <main id="dash-main" class="dash-main"></main>
+    </div>
+  </div>
+
+  <script src="js/data.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/dashboard.js"></script>
+</body>
+</html>

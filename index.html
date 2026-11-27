@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TripNest — Discover Ghana, plan the journey</title>
+  <meta name="description" content="Explore Ghanaian destinations, hidden gems and places to stay, then turn them into a trip with an itinerary and a budget in cedis." />
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body data-page="home">
+  <a href="#main" class="skip-link">Skip to content</a>
+  <div id="site-header"></div>
+
+  <main id="main">
+    <!-- Multi-scene Ghana Drone Video Hero -->
+    <section class="hero">
+      <div class="hero-bg-wrap" aria-hidden="true">
+        <video id="hero-video" class="hero-video" muted playsinline preload="none" poster="assets/videos/cape-coast.webp"></video>
+        <div class="hero-overlay"></div>
+      </div>
+
+      <div class="shell hero-inner">
+        <div style="max-width:48rem">
+          <h1 class="hero-title">
+            Discover Ghana,
+            <span>effortlessly.</span>
+          </h1>
+          <p class="hero-sub">
+            Curated destinations, verified local stays, and an interactive 3D map — everything you need to
+            plan a trip across Ghana in one clean workspace.
+          </p>
+        </div>
+
+        <!-- Floating Airbnb-style Search Pill -->
+        <div class="hero-search-wrap">
+          <form id="hero-search-form" class="search-pill" role="search" aria-label="Search destinations">
+            <div class="search-pill-grid">
+              <div class="search-pill-col has-divider">
+                <label for="hero-search">Where</label>
+                <input
+                  id="hero-search"
+                  type="text"
+                  role="combobox"
+                  aria-expanded="false"
+                  aria-controls="hero-search-dropdown"
+                  aria-autocomplete="list"
+                  autocomplete="off"
+                  placeholder="Search destinations, towns or regions"
+                />
+                <div id="hero-search-dropdown" class="search-dropdown" role="listbox" aria-label="Search suggestions"></div>
+              </div>
+              <div class="search-pill-col">
+                <label for="hero-interest">Vibe</label>
+                <select id="hero-interest">
+                  <option value="">Any experience</option>
+                </select>
+              </div>
+              <button type="submit" class="search-pill-btn">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3">
+                  <circle cx="11" cy="11" r="7"></circle>
+                  <path d="m20 20-3.5-3.5" stroke-linecap="round"></path>
+                </svg>
+                Search
+              </button>
+            </div>
+          </form>
+          <div id="hero-popular" class="popular-pills"></div>
+        </div>
+
+        <!-- Quick Actions + Interactive Ghana Scene Switcher -->
+        <div class="hero-bottom-bar">
+          <div class="hero-quick-actions">
+            <a href="explore.html" class="btn btn-gold btn-sm">
+              Launch 3D Globe <span aria-hidden="true">→</span>
+            </a>
+            <a href="plan.html" class="btn btn-ghost-light btn-sm">Build an itinerary</a>
+          </div>
+          <div class="hero-scene-controls">
+            <div class="hero-scene-meta">
+              <span id="hero-scene-index" class="font-mono" style="color:rgba(255,255,255,0.55)">01/03</span>
+              <span id="hero-scene-label" class="fw-600" style="color:rgba(255,255,255,0.92)">Cape Coast Castle</span>
+              <span id="hero-scene-region" style="color:rgba(255,255,255,0.58)">· Central Region</span>
+            </div>
+            <div id="hero-scene-dots" class="hero-scene-dots" role="group" aria-label="Ghana video scenes"></div>
+            <button type="button" id="hero-video-toggle" class="video-toggle-btn" aria-label="Pause background video"></button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Travel by Vibe -->
+    <section class="section section-cream" style="border-top:0">
+      <div class="shell">
+        <div class="section-header">
+          <div class="section-header-copy">
+            <p class="eyebrow">Travel by vibe</p>
+            <h2 class="display-lg">How do you want to experience Ghana?</h2>
+            <p class="lede">Pick a mood or travel goal — from coastal retreats and heritage routes to rainforest trails.</p>
+          </div>
+          <a href="experiences.html" class="pill-action">All experiences <span aria-hidden="true">→</span></a>
+        </div>
+        <div id="home-categories-rail" class="vibe-rail"></div>
+        <div id="home-categories-more" class="more-vibes"></div>
+      </div>
+    </section>
+
+    <!-- Featured Destinations Bento Grid -->
+    <section id="trending" class="section">
+      <div class="shell">
+        <div class="section-header">
+          <div class="section-header-copy">
+            <p class="eyebrow">Featured Destinations</p>
+            <h2 class="display-lg">Where will you go next?</h2>
+            <p class="lede">From Atlantic forts and rainforest canopies to crater lakes and northern savannah.</p>
+          </div>
+          <a href="destinations.html" class="pill-action">All destinations <span aria-hidden="true">→</span></a>
+        </div>
+        <div id="home-trending-grid" class="bento-grid"></div>
+      </div>
+    </section>
+
+    <!-- Places to Stay -->
+    <section class="section section-cream">
+      <div class="shell">
+        <div class="section-header">
+          <div class="section-header-copy">
+            <p class="eyebrow">Places to stay</p>
+            <h2 class="display-lg">Stays across Ghana.</h2>
+            <p class="lede">Transparent indicative rates in cedis — from budget hostels to coastal apartments and city hotels.</p>
+          </div>
+          <a href="stays.html" class="pill-action">Explore all stays <span aria-hidden="true">→</span></a>
+        </div>
+
+        <div class="filter-pills">
+          <a href="stays.html?type=HOTEL" class="filter-pill"><strong>Hotels</strong> <span class="text-muted">· Rooms &amp; reliable basics</span></a>
+          <a href="stays.html?type=HOSTEL" class="filter-pill"><strong>Hostels</strong> <span class="text-muted">· Budget &amp; social stays</span></a>
+          <a href="stays.html?type=APARTMENT" class="filter-pill"><strong>Apartments</strong> <span class="text-muted">· Kitchens &amp; slower pace</span></a>
+        </div>
+
+        <div id="home-stays-grid" class="grid-3 mt-8"></div>
+
+        <p class="text-xs text-muted mt-8">
+          TripNest does not take bookings or online payments — every listing links directly to the provider
+          so you can confirm availability with them.
+        </p>
+      </div>
+    </section>
+
+    <!-- Hidden Gems Dark Band -->
+    <section class="section section-dark">
+      <div class="shell">
+        <div class="section-header">
+          <div class="section-header-copy">
+            <p class="eyebrow eyebrow-light">Off the usual trail</p>
+            <h2 class="display-lg">Hidden gems in Ghana</h2>
+            <p style="margin-top:0.75rem;color:rgba(255,255,255,0.68);font-size:0.96rem">
+              Stilt villages, hill shrines, forest sanctuaries and quiet corners beyond the standard itinerary.
+            </p>
+          </div>
+          <a href="experiences.html?hidden=1" class="pill-action pill-action-dark">All hidden gems <span aria-hidden="true">→</span></a>
+        </div>
+        <div id="home-gems-grid" class="gems-grid"></div>
+      </div>
+    </section>
+
+    <!-- Experiences Worth Saving -->
+    <section class="section" style="border-bottom:1px solid var(--line)">
+      <div class="shell">
+        <div class="section-header">
+          <div class="section-header-copy">
+            <p class="eyebrow">Things to do</p>
+            <h2 class="display-lg">Experiences worth saving</h2>
+            <p class="lede">Heritage tours, canopy walks, waterfalls, wildlife sanctuaries and long beach afternoons.</p>
+          </div>
+          <a href="experiences.html" class="pill-action">All experiences <span aria-hidden="true">→</span></a>
+        </div>
+        <div id="home-experiences-grid" class="exp-showcase-grid"></div>
+      </div>
+    </section>
+
+    <!-- Trip Planning Steps + Sample Itinerary Card -->
+    <section class="section">
+      <div class="shell planner-split">
+        <div>
+          <p class="eyebrow">From idea to itinerary</p>
+          <h2 class="display-lg mt-2">
+            Plan your journey,
+            <span style="display:block;color:var(--muted)">not just a wish list.</span>
+          </h2>
+          <p class="lede mt-4" style="max-width:28rem">
+            Turn the places you save into a clear day-by-day plan with a live budget breakdown in Ghana cedis.
+          </p>
+
+          <ol class="steps-list">
+            <li class="steps-item"><span class="steps-num">01</span><div><h3>Discover</h3><p>Explore destinations, hidden gems and experiences across Ghana.</p></div></li>
+            <li class="steps-item"><span class="steps-num">02</span><div><h3>Save</h3><p>Keep the places that appeal to you in one clean list.</p></div></li>
+            <li class="steps-item"><span class="steps-num">03</span><div><h3>Organise</h3><p>Build a dated day-by-day itinerary with stops and notes.</p></div></li>
+            <li class="steps-item"><span class="steps-num">04</span><div><h3>Budget</h3><p>Estimate accommodation, food, transport and activities in cedis.</p></div></li>
+          </ol>
+
+          <div class="flex flex-wrap gap-3 mt-8">
+            <a href="dashboard.html?tab=new-trip" class="btn btn-primary">Start planning</a>
+            <a href="plan.html" class="btn btn-outline">How it works</a>
+          </div>
+        </div>
+
+        <div>
+          <div class="itinerary-preview">
+            <div class="itinerary-preview-head">
+              <strong class="text-sm">Coast &amp; Castles</strong>
+              <span class="font-mono text-xs text-muted">3 nights · 2 travellers</span>
+            </div>
+            <div class="itinerary-preview-rows">
+              <div class="itinerary-preview-row">
+                <span class="itinerary-dot"></span>
+                <div style="flex:1;min-width:0">
+                  <p class="font-mono text-xs text-muted">SAT 12 DEC · 15:00</p>
+                  <p class="fw-600 text-sm">Arrive, walk the old town</p>
+                </div>
+                <span class="font-mono text-xs fw-600">GH₵ 60</span>
+              </div>
+              <div class="itinerary-preview-row">
+                <span class="itinerary-dot"></span>
+                <div style="flex:1;min-width:0">
+                  <p class="font-mono text-xs text-muted">SUN 13 DEC · 08:30</p>
+                  <p class="fw-600 text-sm">Cape Coast Castle tour</p>
+                </div>
+                <span class="font-mono text-xs fw-600">GH₵ 120</span>
+              </div>
+              <div class="itinerary-preview-row">
+                <span class="itinerary-dot"></span>
+                <div style="flex:1;min-width:0">
+                  <p class="font-mono text-xs text-muted">SUN 13 DEC · 14:00</p>
+                  <p class="fw-600 text-sm">Elmina harbour, golden hour</p>
+                </div>
+                <span class="font-mono text-xs fw-600">GH₵ 180</span>
+              </div>
+              <div class="itinerary-preview-row">
+                <span class="itinerary-dot"></span>
+                <div style="flex:1;min-width:0">
+                  <p class="font-mono text-xs text-muted">MON 14 DEC · 07:00</p>
+                  <p class="fw-600 text-sm">Kakum canopy walkway</p>
+                </div>
+                <span class="font-mono text-xs fw-600">GH₵ 150</span>
+              </div>
+            </div>
+            <div class="itinerary-preview-foot">
+              <div class="flex items-center justify-between text-xs">
+                <span class="text-muted fw-600">Estimated total</span>
+                <span class="font-mono fw-600" style="font-size:0.9rem">GH₵ 2,650</span>
+              </div>
+              <div class="budget-bar">
+                <span style="width:38%;background:var(--ink)"></span>
+                <span style="width:23%;background:var(--forest-500)"></span>
+                <span style="width:13%;background:var(--gold)"></span>
+                <span style="width:18%;background:#9ca3af"></span>
+                <span style="width:8%;background:#d1d5db"></span>
+              </div>
+              <div class="budget-legend">
+                <span>Stay 38%</span><span>Food 23%</span><span>Activities 13%</span><span>Transport 18%</span><span>Other 8%</span>
+              </div>
+            </div>
+          </div>
+          <p class="font-mono text-xs text-muted mt-3" style="text-align:center">Sample itinerary built with TripNest Planner</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Travel Smarter Essentials -->
+    <section class="section section-cream">
+      <div class="shell">
+        <div class="section-header-copy">
+          <p class="eyebrow">Travel essentials</p>
+          <h2 class="display-lg mt-2">Travel smarter in Ghana.</h2>
+          <p class="lede mt-2">Practical local guidance for first-time visitors, students, and solo travellers.</p>
+        </div>
+        <div class="grid-4 mt-8">
+          <article class="essential-card">
+            <span class="essential-icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.2 5.2l1.6 1.6M17.2 17.2l1.6 1.6M18.8 5.2l-1.6 1.6M6.8 17.2l-1.6 1.6" stroke-linecap="round"/></svg>
+            </span>
+            <h3>Best times to visit</h3>
+            <p>Dry season runs roughly November to March in the south, with heavier rains May–July. The north is hottest before the rains arrive.</p>
+            <a href="destinations.html?category=nature">Seasonal destinations →</a>
+          </article>
+          <article class="essential-card">
+            <span class="essential-icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 21s7-5.2 7-11a7 7 0 1 0-14 0c0 5.8 7 11 7 11Z" stroke-linejoin="round"/><circle cx="12" cy="10" r="2.5"/></svg>
+            </span>
+            <h3>Getting around</h3>
+            <p>Intercity buses and trotros cover Ghana affordably. For national parks and remote villages, hiring a driver for the day is usually best.</p>
+            <a href="explore.html">Open 3D map →</a>
+          </article>
+          <article class="essential-card">
+            <span class="essential-icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M3 10h18M7 15h3" stroke-linecap="round"/></svg>
+            </span>
+            <h3>Money &amp; connectivity</h3>
+            <p>Mobile Money (MoMo) is everywhere and cards work in hotels and larger spots. Carry cash cedis for markets and local transport.</p>
+            <a href="about.html#practical">Practical guide →</a>
+          </article>
+          <article class="essential-card">
+            <span class="essential-icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 3.5 20 7v5.5c0 4.4-3.3 7.4-8 8.9-4.7-1.5-8-4.5-8-8.9V7l8-3.5Z" stroke-linejoin="round"/><path d="M9 12h6M12 9v6" stroke-linecap="round"/></svg>
+            </span>
+            <h3>Health &amp; preparation</h3>
+            <p>Check malaria guidance for your regions, stick to bottled or filtered water, and pack basic rehydration salts and sunscreen.</p>
+            <a href="destinations.html">Explore destinations →</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Final CTA Banner -->
+    <section class="section">
+      <div class="shell">
+        <div class="cta-banner">
+          <div class="cta-banner-bg" aria-hidden="true">
+            <img src="assets/images/editorial-forest.jpg" alt="" loading="lazy" />
+            <div class="cta-banner-grad"></div>
+          </div>
+          <p class="eyebrow eyebrow-light">Start your journey</p>
+          <h2 class="display-lg">Your next Ghana trip, planned cleanly.</h2>
+          <p class="cta-sub">Explore destinations in 3D, compare local stays in cedis, and build your itinerary in minutes.</p>
+          <div class="cta-banner-actions">
+            <a href="explore.html" class="btn btn-gold btn-lg">Open 3D Explorer</a>
+            <a href="dashboard.html?tab=new-trip" class="btn btn-ghost-light btn-lg">Plan a trip</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="site-footer"></div>
+
+  <script src="js/data.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/home.js"></script>
+</body>
+</html>

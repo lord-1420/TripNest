@@ -1,8 +1,3 @@
-node_modules/
-.next/
-public/cesium/
-data/tripnest.db
-.env
-.env.local
-.env.*.local
-*.tsbuildinfo
+.DS_Store
+Thumbs.db
+*.log
